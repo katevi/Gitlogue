@@ -1,3 +1,4 @@
+var Stomp = require('@stomp/stompjs');
 var stompClient = null;
 
 function setConnected(connected) {
