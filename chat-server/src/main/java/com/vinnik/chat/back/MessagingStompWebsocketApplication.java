@@ -2,11 +2,12 @@ package com.vinnik.chat.back;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-public class Main {
+public class MessagingStompWebsocketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(MessagingStompWebsocketApplication.class, args);
     }
 }
