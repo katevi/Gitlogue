@@ -1,4 +1,3 @@
-
 var stompClient = null;
 
 function setConnected(connected) {
@@ -15,7 +14,6 @@ function setConnected(connected) {
 
 function connect() {
     var socket = new SockJS('http://localhost:8080/gs-guide-websocket/');
-	//stompClient = Stomp.client('http://localhost:8080/gs-guide-websocket/');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
@@ -50,3 +48,4 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
 });
+	
