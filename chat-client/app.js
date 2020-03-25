@@ -9,7 +9,7 @@ function setConnected(connected) {
     else {
         $("#conversation").hide();
     }
-    $("#greetings").html("");
+    $("#dialogue").html("");
 }
 
 function connect() {
@@ -18,8 +18,8 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/publishedMessages', function (greeting) {
-            showMessage(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/topic/publishedMessages', function (dialogue) {
+            showMessage(JSON.parse(dialogue.body).content);
         });
     });
 }
@@ -37,7 +37,7 @@ function sendMessage() {
 }
 
 function showMessage(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+    $("#dialogue").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {
