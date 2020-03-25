@@ -13,12 +13,12 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('http://localhost:8080/gs-guide-websocket/');
+    var socket = new SockJS('http://localhost:8080/chat-websocket/');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) {
+        stompClient.subscribe('/topic/publishedMessages', function (greeting) {
             showMessage(JSON.parse(greeting.body).content);
         });
     });
@@ -33,7 +33,7 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/sendedMessages", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
 function showMessage(message) {

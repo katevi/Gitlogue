@@ -9,10 +9,9 @@ import org.springframework.web.util.HtmlUtils;
 public class MessageController {
 
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
+    @MessageMapping("/sendedMessages")
+    @SendTo("/topic/publishedMessages")
     public Message greeting(TextMessage message) throws Exception {
-        Thread.sleep(1000); // simulated delay
         return new Message(HtmlUtils.htmlEscape(message.getName()));
     }
 
