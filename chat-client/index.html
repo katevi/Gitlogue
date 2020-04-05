@@ -6,7 +6,6 @@
 	 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="app.js"></script>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
@@ -15,7 +14,7 @@
 <div id="main-content" class="container">
     <div class="row">
         <div class="col-md-6">
-            <form class="form-inline">
+            <form class="form-inline" action="/connection" method="post">
                 <div class="form-group">
                     <label for="connect">Chat</label>
                     <button id="connect" class="btn btn-default" type="submit">Connect</button>
@@ -25,7 +24,7 @@
             </form>
         </div>
         <div class="col-md-6">
-            <form class="form-inline">
+            <form class="form-inline" action="/sendedMessages" method="post">
                 <div class="form-group">
                     <input type="text" id="name" class="form-control" placeholder="Enter message here...">
                 </div>
