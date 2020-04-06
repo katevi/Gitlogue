@@ -3,11 +3,11 @@ const app = express()
 const port = 8081
 
 
-app.use(express.static(__dirname))
+app.use(express.static('app'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-	res.sendFile(__dirname + '/app.js');
+    res.sendFile(__dirname + '/app/index.html');
+	res.sendFile(__dirname + '/app/app.js');
 });
 
 
