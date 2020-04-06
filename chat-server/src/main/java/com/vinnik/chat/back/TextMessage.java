@@ -2,20 +2,20 @@ package com.vinnik.chat.back;
 
 public class TextMessage {
 
-    private String name;
+    private String text;
 
     public TextMessage() {
     }
 
     public TextMessage(String name) {
-        this.name = name;
+        this.text = name;
     }
 
-    public String getName() {
-        return name;
+    public String getText() {
+        return text;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setText(String text) {
+        this.text = text;
     }
 }

@@ -1,5 +1,7 @@
 var stompClient = null;
 
+var name = null;
+
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
@@ -18,9 +20,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/publishedMessages', function (dialogue) {
-            showMessage(JSON.parse(dialogue.body).content);
-        });
+        stompClient.subscribe('/topic/publishedMessages', showMessage);
     });
 }
 
@@ -33,11 +33,34 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/sendedMessages", {}, JSON.stringify({'name': $("#name").val()}));
+	var messageContent = $("#message").val();
+	var chatMessage = {
+		sender: name,
+		content: messageContent
+	}
+    stompClient.send("/app/sendedMessages", {}, JSON.stringify(chatMessage));
+	$("#message").value = ' ';
 }
 
-function showMessage(message) {
-    $("#dialogue").append("<tr><td>" + message + "</td></tr>");
+function showMessage(payload) {
+	var message = JSON.parse(payload.body);
+    $("#dialogue").append("<tr><td>" + message.sender + ":" + message.content + "</td></tr>");
+}
+
+function register() {
+	name = $("#name").val();
+	stompClient.send("/app/chat.newUser", {}, JSON.stringify({
+		sender : name
+	}))
+}
+
+function connectionSuccess() {
+	stompClient.subscribe('/topic/publishedMessages', onMessageReceived);
+
+	stompClient.send("/app/chat.newUser", {}, JSON.stringify({
+		sender : name
+	}))
+
 }
 
 $(function () {
@@ -47,5 +70,5 @@ $(function () {
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
+	$("#register").click(function() {register();});
 });
-	
