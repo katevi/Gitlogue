@@ -1,4 +1,5 @@
 var stompClient = null;
+const serverAddress = 'http://localhost:8080/chat-websocket/';
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
@@ -13,7 +14,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('http://localhost:8080/chat-websocket/');
+    var socket = new SockJS(websocketAddress);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
