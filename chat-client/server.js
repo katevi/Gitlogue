@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const port = 8081
 
-
 app.use(express.static('app'));
 
 app.get('/', (req, res) => {
@@ -13,7 +12,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, (err) => {
     if (err) {
-        return console.log('something bad happened', err)
+        return console.err('Unable to start server. Details ${err}')
     }
     console.log(`server is listening on ${port}`)
 })

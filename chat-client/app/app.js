@@ -1,4 +1,6 @@
 var stompClient = null;
+const serverAddress = 'http://localhost:8080/chat-websocket/';
+var stompStatus = false
 
 var name = null;
 
@@ -7,21 +9,32 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
+		$("#errors").hide();
     }
     else {
         $("#conversation").hide();
+		$("#errors").show();
     }
     $("#dialogue").html("");
 }
 
+var stompFailureCallback = function (error) {
+    stompStatus = false;
+	var message = 'Server is unavailable. Connection failed.';
+	$("#errors").append("<tr><td>" + message + "</td></tr>");
+	$("#errors").show();
+    console.error('Server is unavailable. Connection failed.');
+};
+
 function connect() {
-    var socket = new SockJS('http://localhost:8080/chat-websocket/');
+    var socket = new SockJS(serverAddress);
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/publishedMessages', showMessage);
-    });
+	stompClient.connect({}, function (frame) {
+		setConnected(true);
+		stompStatus = true;
+		console.log('Connected: ' + frame);
+		stompClient.subscribe('/topic/publishedMessages', showMessage);
+    }, stompFailureCallback);
 }
 
 function disconnect() {
@@ -52,15 +65,6 @@ function register() {
 	stompClient.send("/app/chat.newUser", {}, JSON.stringify({
 		sender : name
 	}))
-}
-
-function connectionSuccess() {
-	stompClient.subscribe('/topic/publishedMessages', onMessageReceived);
-
-	stompClient.send("/app/chat.newUser", {}, JSON.stringify({
-		sender : name
-	}))
-
 }
 
 $(function () {
