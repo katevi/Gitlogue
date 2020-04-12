@@ -10,13 +10,15 @@ export class AppComponent {
   title = 'Chat';
 
   public currentMsg: String = "";
+  public messagesInDialoque: String[] = [];
 
   constructor(public websocketService: WebsocketService) {
     
   }
   
 
-  public onSendMsgBtnClicked(msg) { 
+  public onSendMsgBtnClicked(msg) {
+    this.messagesInDialoque.push(msg)
     console.log("send msg button has been clicked" + msg)
   }
 }

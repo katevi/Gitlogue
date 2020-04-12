@@ -22,9 +22,11 @@
       <div class="col-md-12">
           <table id="conversation" class="table table-striped">
               <thead>
-              <tr>
-                  <th>Dialogue</th>
-              </tr>
+                <th>Dialogue</th>
+                <!-- Loop over existing messages in dialoque -->
+                <tr *ngFor="let message of messagesInDialoque">
+                  {{ message }}
+                </tr>
               </thead>
               <tbody id="dialogue">
               </tbody>
