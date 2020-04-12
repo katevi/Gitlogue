@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Troubleshooting
+
+1. StompJS installation
+```
+ERROR in ./node_modules/stompjs/lib/stomp-node.js
+Module not found: Error: Can't resolve 'net' in '/Users/Andrey/Developer/mentorship/KateChat/Chat/chat-client/angular/chat/node_modules/stompjs/lib'
+```
+Fixed by `npm i net -S`
+
+2. 'Global not defined'
+Add the following code into `polyfills.ts`:
+```
+/**
+ * Workaround for https://github.com/angular/angular-cli/issues/8160
+ */
+(window as any).global = window; 
+```
