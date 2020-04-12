@@ -8,12 +8,16 @@ import * as SockJS from 'sockjs-client'
 })
 export class WebsocketService {
 
-  private serverUrl = 'http://localhost:8080/chat-websocket';
+  private TARGET_MSG_SERVER = 'http://localhost:8080';
+  private MSG_SERVER_SOCKET_URL = `${this.TARGET_MSG_SERVER}/chat-websocket`;
   
   private stompClient;
 
-  public connect() { 
-    let socket = new SockJS(this.serverUrl);
+  public getMsgPublishSubscription() { 
+    return this.stompClient;
+  }
+  public establishConnection() { 
+    let socket = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(socket);
 
 
@@ -26,5 +30,9 @@ export class WebsocketService {
     }
 
     var newMsgSubscription = this.stompClient.subscribe('/topic/publishedMessages', receiveMsgCallback);
+  }
+
+  public sendMsg(msg: String) {
+    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify({'name': msg}));
   }
 } 

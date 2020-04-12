@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public onConnectBtnClicked() {
-    this.websocketService.connect();
+    this.websocketService.establishConnection();
     console.log("Connect btn has been clicked");
   }
 

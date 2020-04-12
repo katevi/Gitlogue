@@ -12,9 +12,9 @@
       <div class="col-md-6">
           <form class="form-inline">
               <div class="form-group">
-                  <input type="text" id="name" class="form-control" placeholder="Enter message here...">
+                  <input [(ngModel)]="this.currentMsg" name="Entering message" type="text" id="name" class="form-control" placeholder="Enter message here...">
               </div>
-              <button id="send" class="btn btn-default">Send</button>
+              <button id="send" class="btn btn-default" (click)="onSendMsgBtnClicked(currentMsg)">Send</button>
           </form>
       </div>
   </div>
