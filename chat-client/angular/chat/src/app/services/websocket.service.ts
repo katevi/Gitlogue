@@ -14,9 +14,17 @@ export class WebsocketService {
 
   public connect() { 
     let socket = new SockJS(this.serverUrl);
-    let stompClient = Stomp.over(socket);
-    return stompClient; 
-} 
+    this.stompClient = Stomp.over(socket);
 
-  constructor() { }
-}
+
+    var connectCallback = function() {
+      console.log("connected");
+    };
+    this.stompClient.connect({}, connectCallback);
+    var receiveMsgCallback = function(message) {
+      console.log(JSON.parse(message.body).content);
+    }
+
+    var newMsgSubscription = this.stompClient.subscribe('/topic/publishedMessages', receiveMsgCallback);
+  }
+} 
