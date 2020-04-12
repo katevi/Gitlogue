@@ -1,27 +1,40 @@
 var stompClient = null;
+const serverAddress = 'http://localhost:8080/chat-websocket/';
+var stompStatus = false
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
+		$("#errorWindow").hide();
     }
     else {
         $("#conversation").hide();
+		$("#errorWindow").show();
     }
     $("#dialogue").html("");
 }
 
+var stompFailureCallback = function (error) {
+    stompStatus = false;
+	var message = 'Server is unavailable. Connection failed.';
+	$("#errors").append("<tr><td>" + message + "</td></tr>");
+	$("#errors").show();
+    console.error('Server is unavailable. Connection failed.');
+};
+
 function connect() {
-    var socket = new SockJS('http://localhost:8080/chat-websocket/');
+    var socket = new SockJS(serverAddress);
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/publishedMessages', function (dialogue) {
-            showMessage(JSON.parse(dialogue.body).content);
+	stompClient.connect({}, function (frame) {
+		setConnected(true);
+		stompStatus = true;
+		console.log('Connected: ' + frame);
+		stompClient.subscribe('/topic/publishedMessages', function (dialogue) {
+			showMessage(JSON.parse(dialogue.body).content);
         });
-    });
+    }, stompFailureCallback);
 }
 
 function disconnect() {
@@ -48,4 +61,3 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
 });
-	
