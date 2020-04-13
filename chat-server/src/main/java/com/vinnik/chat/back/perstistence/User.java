@@ -2,11 +2,35 @@ package com.vinnik.chat.back.perstistence;
 
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@PasswordMatches
 public class User {
 
     @Id private String id;
+
+    @NotNull
+    @NotEmpty
     private String nickname;
+
+    @NotNull
+    @NotEmpty
     private String fullName;
+
+    @NotNull
+    @NotEmpty
+    private String password;
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    private String matchingPassword;
+
+    @NotNull
+    @NotEmpty
+    private String gitHubAccount;
 
     public String getPassword() {
         return password;
@@ -23,10 +47,6 @@ public class User {
     public void setGitHubAccount(String gitHubAccount) {
         this.gitHubAccount = gitHubAccount;
     }
-
-    private String password;
-    private String gitHubAccount;
-
 
     public String getNickname() {
         return nickname;
