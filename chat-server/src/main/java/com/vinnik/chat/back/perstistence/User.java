@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatches
 public class User {
 
     @Id private String id;
