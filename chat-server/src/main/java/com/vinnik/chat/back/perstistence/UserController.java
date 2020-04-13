@@ -37,16 +37,9 @@ public class UserController {
             validator.validateNewUser(user);
             userService.saveOrUpdateUser(user);
             return new ResponseEntity("User added successfully", HttpStatus.OK);
-        } catch (PasswordMismatchException e) {
-            e.printStackTrace();
-            //FIXME google about http statuses
-            return new ResponseEntity<>("Mismatched password", HttpStatus.NOT_ACCEPTABLE);
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
             return new ResponseEntity<>("Nickname already exists", HttpStatus.FORBIDDEN);
-        } catch (GitHubAccountDoesNotExistException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Github account not found", HttpStatus.NOT_FOUND);
         }
     }
 
