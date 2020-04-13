@@ -8,25 +8,10 @@ public class UserValidator {
         this.userService = userService;
     }
 
-    public boolean validateNewUser(User user) throws NicknameAlreadyExistsException, GitHubAccountDoesNotExistException, PasswordMismatchException {
-        if (!validatePassword(user.getMatchingPassword(), user.getPassword())) {
-            throw new PasswordMismatchException();
-        }
-
+    public boolean validateNewUser(User user) throws NicknameAlreadyExistsException {
         if (!validateNickname(user.getNickname())) {
             throw new NicknameAlreadyExistsException();
         }
-        if (!validateGitHubAccount()) {
-            throw new GitHubAccountDoesNotExistException();
-        }
-        return true;
-    }
-
-    private boolean validatePassword(String matchingPassword, String password) {
-        return matchingPassword.equals(password);
-    }
-
-    private boolean validateGitHubAccount() {
         return true;
     }
 
