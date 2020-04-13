@@ -10,6 +10,7 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public List<User> findAll() {
         return userRepository.findAll();

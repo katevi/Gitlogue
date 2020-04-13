@@ -18,7 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
     private UserValidator validator;
 
     @GetMapping("/{nickname}")
@@ -32,9 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> saveOrUpdateUser(@RequestBody @Valid User user, BindingResult result) {
+    public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
         try {
-            validator.validateNewUser(user);
+            UserValidator validator = new UserValidator();
+            validator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
             return new ResponseEntity("User added successfully", HttpStatus.OK);
         } catch (NicknameAlreadyExistsException e) {

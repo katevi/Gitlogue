@@ -21,12 +21,6 @@ public class User {
     @NotEmpty
     private String password;
 
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    private String matchingPassword;
-
     @NotNull
     @NotEmpty
     private String gitHubAccount;
