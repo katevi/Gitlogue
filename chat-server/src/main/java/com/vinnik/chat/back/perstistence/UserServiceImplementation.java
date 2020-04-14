@@ -1,6 +1,9 @@
 package com.vinnik.chat.back.perstistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +13,8 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -28,6 +33,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public void saveOrUpdateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 }

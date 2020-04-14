@@ -14,6 +14,9 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserValidator userValidator;
+
     @GetMapping("/{nickname}")
     public User getUserByUserNickname(@PathVariable("nickname") String nickname) {
         return userService.findByNickname(nickname);
@@ -28,8 +31,7 @@ public class RegistrationController {
     @SendTo("/response")
     public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
         try {
-            UserValidator validator = new UserValidator();
-            validator.validateNewUser(userService, user);
+            userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
             return new ResponseEntity("User added successfully", HttpStatus.OK);
         } catch (NicknameAlreadyExistsException e) {
