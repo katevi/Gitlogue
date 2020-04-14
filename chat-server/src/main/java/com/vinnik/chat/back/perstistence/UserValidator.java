@@ -9,6 +9,24 @@ public class UserValidator {
         return true;
     }
 
+    public boolean validateUser(UserService userService, User user) throws IncorrectLoginOrPasswordException {
+        if (!validatePasswordAndNickname(userService, user)) {
+            throw new IncorrectLoginOrPasswordException();
+        }
+        return true;
+    }
+
+    private boolean validatePasswordAndNickname(UserService userService, User user) {
+        if (userService.findByNickname(user.getNickname()) == null) {
+            return false;
+        }
+        User expectedUser = userService.findByNickname(user.getNickname());
+        if (!expectedUser.getPassword().equals(user.getPassword())) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean validateNickname(UserService userService, String nickname) {
         return userService.findByNickname(nickname) == null;
     }
