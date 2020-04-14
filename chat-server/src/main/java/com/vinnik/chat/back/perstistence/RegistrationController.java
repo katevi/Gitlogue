@@ -13,8 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("registration/users")
+public class RegistrationController {
     @Autowired
     private UserService userService;
 

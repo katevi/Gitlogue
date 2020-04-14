@@ -14,6 +14,8 @@ public class User {
         this.gitHubAccount = gitHubAccount;
     }
 
+    public User() { };
+
     @Id private String id;
 
     @NotNull
