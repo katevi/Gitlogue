@@ -18,8 +18,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    private UserValidator validator;
-
     @GetMapping("/{nickname}")
     public User getUserByUserNickname(@PathVariable("nickname") String nickname) {
         return userService.findByNickname(nickname);
