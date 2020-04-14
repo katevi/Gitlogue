@@ -3,13 +3,9 @@ package com.vinnik.chat.back.perstistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -29,6 +25,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/")
+    @SendTo("/response")
     public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
         try {
             UserValidator validator = new UserValidator();

@@ -13,7 +13,7 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("/")
-    @SendTo("/authorizationResponse")
+    @SendTo("/Response")
     public ResponseEntity<?> login(@RequestBody User user) {
         try {
             UserValidator userValidator = new UserValidator();
