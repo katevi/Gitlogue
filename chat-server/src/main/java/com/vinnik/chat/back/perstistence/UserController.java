@@ -21,7 +21,7 @@ public class UserController {
     private UserValidator validator;
 
     @GetMapping("/{nickname}")
-    public User geUserByUserNickname(@PathVariable("nickname") String nickname) {
+    public User getUserByUserNickname(@PathVariable("nickname") String nickname) {
         return userService.findByNickname(nickname);
     }
 

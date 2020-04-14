@@ -7,6 +7,13 @@ import javax.validation.constraints.NotNull;
 
 public class User {
 
+    public User(String nickname, String fullName, String password, String gitHubAccount) {
+        this.nickname = nickname;
+        this.fullName = fullName;
+        this.password = password;
+        this.gitHubAccount = gitHubAccount;
+    }
+
     @Id private String id;
 
     @NotNull
