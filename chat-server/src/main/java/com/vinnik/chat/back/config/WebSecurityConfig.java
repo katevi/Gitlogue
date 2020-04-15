@@ -15,7 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(11);
+        final int howManyIterationsUseInCrypt = 11;
+        return new BCryptPasswordEncoder(howManyIterationsUseInCrypt);
     }
 
     @Override
