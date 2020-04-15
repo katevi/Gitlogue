@@ -43,6 +43,6 @@ public class RegistrationController {
     @DeleteMapping("/{nickname}")
     public ResponseEntity<?> deleteUser(@PathVariable("nickname") String nickname) {
         userService.deleteUser(nickname);
-        return new ResponseEntity<>("User deleted successful", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("User has been successfully removed", HttpStatus.NO_CONTENT);
     }
 }
