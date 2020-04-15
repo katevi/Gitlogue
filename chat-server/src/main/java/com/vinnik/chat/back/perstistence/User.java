@@ -35,7 +35,6 @@ public class User {
     private String gitHubAccount;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date createdDate = new Date();
 
 
