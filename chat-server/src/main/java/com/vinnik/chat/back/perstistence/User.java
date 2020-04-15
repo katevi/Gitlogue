@@ -1,9 +1,18 @@
 package com.vinnik.chat.back.perstistence;
 
-import org.springframework.data.annotation.Id;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
 
 public class User {
 
@@ -24,6 +33,11 @@ public class User {
     @NotNull
     @NotEmpty
     private String gitHubAccount;
+
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private Date createdDate = new Date();
+
 
     public String getPassword() {
         return password;
@@ -55,5 +69,9 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
     }
 }
