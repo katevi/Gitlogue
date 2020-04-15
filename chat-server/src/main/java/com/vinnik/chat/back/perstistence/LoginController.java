@@ -22,7 +22,7 @@ public class LoginController {
             validator.validateUser(userService, user);
             return new ResponseEntity<>("Authorization completed successful", HttpStatus.OK);
         } catch (IncorrectLoginOrPasswordException e) {
-            return new ResponseEntity<>("Incorrect login or password", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Incorrect login or password", HttpStatus.UNAUTHORIZED);
         }
     }
 }

@@ -36,13 +36,13 @@ public class RegistrationController {
             return new ResponseEntity("User added successfully", HttpStatus.OK);
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Nickname already exists", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Nickname already exists", HttpStatus.CONFLICT);
         }
     }
 
     @DeleteMapping("/{nickname}")
     public ResponseEntity<?> deleteUser(@PathVariable("nickname") String nickname) {
         userService.deleteUser(nickname);
-        return new ResponseEntity("User added successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User deleted successful", HttpStatus.NO_CONTENT);
     }
 }
