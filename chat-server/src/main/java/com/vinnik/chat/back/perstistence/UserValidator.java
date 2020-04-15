@@ -25,10 +25,10 @@ public class UserValidator {
     }
 
     private boolean validatePasswordAndNickname(final UserService userService, final User user) {
-        if (userService.findByNickname(user.getNickname()) == null) {
+        final User expectedUser = userService.findByNickname(user.getNickname());
+        if (expectedUser == null) {
             return false;
         }
-        final User expectedUser = userService.findByNickname(user.getNickname());
         final String receivedPassword = user.getPassword();
         if (!passwordEncoder.matches(receivedPassword, expectedUser.getPassword())) {
             return false;
