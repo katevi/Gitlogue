@@ -1,17 +1,9 @@
 package com.vinnik.chat.back.perstistence;
 
-
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Date;
 
 public class User {
