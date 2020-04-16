@@ -1,10 +1,16 @@
 # Chat
 Pet-project of participant Dell mentorship program. Made with Java. 
 
-#№ Server part
 
-#№№ REST API 
+## Server part
 
+
+### 1. Execution
+1. ```gradle bootJar```
+2. Navigate to ```build/libs/```
+3. ```java -jar chat-server-0.0.1-SNAPSHOT.jar```
+
+### 2. REST API 
 | Method | Type | Arguments' type | Arguments | Description |
 | --- | --- | --- | --- | --- |
 | `/app/sentMessages` | **POST** | `application/json` | `message` - text of user's message, `sender` - user's nickname |  Receives chat message from registered user |
@@ -17,3 +23,4 @@ Pet-project of participant Dell mentorship program. Made with Java.
 | `registration/user/response/` | **POST** | `message/http`| - | Sends http status code about result of registration |
 | `login/user/` | **POST** | `application/json` | `nickname` - nickname of user, who want to log in, `password` - user's password | Tries to log in user with specialized metadata |
 | `login/user/response` | **POST** | `message/http` | - | Sends http status code about result of login |
+
