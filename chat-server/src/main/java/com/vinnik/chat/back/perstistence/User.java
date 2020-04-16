@@ -66,7 +66,7 @@ public class User {
         this.fullName = fullName;
     }
 
-    public long getCreatedDate() {
+    public long getTimestamp() {
         return this.timestamp;
     }
 }
