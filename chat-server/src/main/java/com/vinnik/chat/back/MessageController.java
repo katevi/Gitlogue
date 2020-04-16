@@ -22,5 +22,4 @@ public class MessageController {
         headerAccessor.getSessionAttributes().put("username", message.getSender());
         return message;
     }
-
 }
