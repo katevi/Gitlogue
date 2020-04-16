@@ -2,8 +2,11 @@ package com.vinnik.chat.back.perstistence;
 
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 public class User {
@@ -27,11 +30,12 @@ public class User {
     private String gitHubAccount;
 
     @NotNull
-    private Date createdDate = new Date();
+    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private long timestamp = Instant.now().getEpochSecond();
 
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -39,7 +43,7 @@ public class User {
     }
 
     public String getGitHubAccount() {
-        return gitHubAccount;
+        return this.gitHubAccount;
     }
 
     public void setGitHubAccount(String gitHubAccount) {
@@ -47,7 +51,7 @@ public class User {
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public void setNickname(String nickname) {
@@ -55,14 +59,14 @@ public class User {
     }
 
     public String getFullName() {
-        return fullName;
+        return this.fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public long getCreatedDate() {
+        return this.timestamp;
     }
 }
