@@ -1,3 +1,4 @@
 package com.vinnik.chat.back.perstistence;
 
-public class NicknameAlreadyExistsException extends Exception { }
+public class NicknameAlreadyExistsException extends Exception {
+}

@@ -37,6 +37,6 @@ public class UserValidator {
     }
 
     private boolean validateNickname(final UserService userService, final String nickname) {
-        return userService.findByNickname(nickname) == null;
+        return (userService.findByNickname(nickname) == null);
     }
 }
