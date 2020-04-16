@@ -1,11 +1,9 @@
 # Chat
 Pet-project of participant Dell mentorship program. Made with Java. 
 
-### Server part
+#№ Server part
 
-### Execution
-
-# 2. REST API 
+#№№ REST API 
 
 | Method | Type | Arguments' type | Arguments | Description |
 | --- | --- | --- | --- | --- |
