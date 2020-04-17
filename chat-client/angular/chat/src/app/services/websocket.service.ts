@@ -30,4 +30,8 @@ export class WebsocketService {
   onMessageReceived(message) {
       console.log("Message Recieved from Server :: " + JSON.parse(message.body).content);
   }
+
+  sendMsg(message) {
+    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(message));
+  }
 } 
