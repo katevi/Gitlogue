@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
                         this.inputPassword,
                         this.inputGitHubAccount);
     this.hasAuthed = this.isLoginPossible();
+    this.websocketService.registerUser(user);
   }
 
   public onSendMsgBtnClicked(msg: string) {

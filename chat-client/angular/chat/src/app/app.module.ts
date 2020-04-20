@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     // -- Usage of two-way data binding.
-    FormsModule
+    FormsModule,
+    // -- REST calls
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

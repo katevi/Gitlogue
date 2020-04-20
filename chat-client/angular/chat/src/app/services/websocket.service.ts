@@ -5,6 +5,8 @@ import * as SockJS from 'sockjs-client'
 
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../models/message.model';
+import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,8 @@ export class WebsocketService {
   private messabePublishing$: Subscription = new Subscription();
   private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
 
+  constructor(private http: HttpClient) {}
+  
   public connect() {
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(ws);
@@ -55,5 +59,12 @@ export class WebsocketService {
 
   public getMsgSubscription() {
     return this.stompClient.subscribe("/topic/publishedMessages");
+  }
+
+  public registerUser(newUser: User) {
+    let newUserFormData = new FormData();
+    let userParam = new Blob([JSON.stringify(newUser)], { type: "application/json" });
+    newUserFormData.append('user', userParam);
+    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/user/`, newUserFormData)
   }
 } 
