@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
     if (!this.isLoginPossible) {
       return;
     }
+    this.hasAuthed = this.isLoginPossible;
   }
 
   public onSendMsgBtnClicked(msg: string) {
