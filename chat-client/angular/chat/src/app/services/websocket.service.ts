@@ -32,12 +32,20 @@ export class WebsocketService {
   onMessageReceived(message) {
     let msgContent = JSON.parse(message.body).content;
     this.lastReceivedMsg$.next(msgContent);
-    console.log("Message Recieved from Server :: " + JSON.parse(message.body).content);
+    console.log("Message Recieved from Server :: " + message.body);
   }
 
   
-  sendMsg(message) {
-    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(message));
+  sendMsg(msg) {
+    let msgFormData = new FormData();
+    let info = {
+      content: msg,
+      sender: "Andrey"
+    }
+    let userInfo = new Blob([JSON.stringify(info)], { type: "application/json" });
+    msgFormData.append('defaults', userInfo);
+
+    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(info));
   }
 
   public getLastReceivedMsg(): Observable<String> {

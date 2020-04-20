@@ -7,7 +7,7 @@ import { WebsocketService } from './services/websocket.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  
+
   title = 'Chat';
 
   public currentMsg: String = "";
@@ -15,20 +15,20 @@ export class AppComponent implements OnInit {
 
   constructor(
     public websocketService: WebsocketService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.init();
-   }
+  }
 
-private init(): void {
-  this.websocketService.connect();
-  this.websocketService.getLastReceivedMsg().subscribe(
-    (newMsg: String) => {
-      this.messages.push(newMsg)
-    }
-  )
-}
+  private init(): void {
+    this.websocketService.connect();
+    this.websocketService.getLastReceivedMsg().subscribe(
+      (newMsg: String) => {
+        this.messages.push(newMsg)
+      }
+    )
+  }
 
   public onSendMsgBtnClicked(msg: String) {
     if (msg == "") {
