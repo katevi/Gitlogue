@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client'
+
 import { Subscription } from 'rxjs';
 
 @Injectable({
@@ -31,7 +32,16 @@ export class WebsocketService {
       console.log("Message Recieved from Server :: " + JSON.parse(message.body).content);
   }
 
+  
   sendMsg(message) {
     this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(message));
+  }
+
+  public geStompClient() { 
+    return this.stompClient;
+  }
+  
+  public getMsgSubscription() { 
+    return this.stompClient.subscribe("/topic/publishedMessages");
   }
 } 

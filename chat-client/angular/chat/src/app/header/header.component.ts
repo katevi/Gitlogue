@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebsocketService } from '../services/websocket.service';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 
@@ -14,12 +14,7 @@ import * as SockJS from 'sockjs-client'
 })
 export class HeaderComponent implements OnInit {
 
-  private stompClient: any;
-  myWebSocket: WebSocketSubject<any> = webSocket("http://localhost:8080/chat-websocket/");
-
-  constructor(
-    public websocketService: WebsocketService
-  ) { }
+  constructor() { }
 
   ngOnInit() {}
 }

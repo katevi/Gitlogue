@@ -1,5 +1,4 @@
-  <!-- Header component -->
-  <app-header></app-header>
+<app-header></app-header>
 <div id="main-content" class="container">
   <div class="row">
  <!-- header has been here -->
@@ -24,8 +23,8 @@
               <thead>
                 <th>Dialogue</th>
                 <!-- Loop over existing messages in dialoque -->
-                <tr *ngFor="let message of messagesInDialoque">
-                  {{ message }}
+                <tr *ngFor="let msg of this.messages">
+                    {{ msg }}
                 </tr>
               </thead>
               <tbody id="dialogue">
