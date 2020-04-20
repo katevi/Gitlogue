@@ -12,7 +12,9 @@ export class AppComponent implements OnInit {
   title = 'Chat';
 
   public currentMsg: String = "";
+  public enteredUsername: String = "";
   public messages: Message[] = [];
+  public hasAuthed: boolean = false;
 
   constructor(
     public websocketService: WebsocketService
@@ -34,12 +36,12 @@ export class AppComponent implements OnInit {
     )
   }
 
-  public onSendMsgBtnClicked(msg: String) {
+  public onSendMsgBtnClicked(msg: string) {
     if (msg == "") {
       console.error("empty msg!")
       return;
     }
-    this.websocketService.sendMsg(msg);
+    this.websocketService.sendMsg(msg, "Andrey");
     this.currentMsg = "";
   }
 }

@@ -37,15 +37,11 @@ export class WebsocketService {
   }
 
   
-  sendMsg(msg) {
-    let msgFormData = new FormData();
-    let info = {
+  sendMsg(msg: string, senderName: string) {
+    let info: Object = {
       content: msg,
-      sender: "Andrey"
+      sender: senderName
     }
-    let userInfo = new Blob([JSON.stringify(info)], { type: "application/json" });
-    msgFormData.append('defaults', userInfo);
-
     this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(info));
   }
 
