@@ -19,12 +19,6 @@ export class AppComponent implements OnInit {
   public inputUsername: String = "";
   public inputPassword: String = "";
   public inputGitHubAccount: String = "";
-  public isLoginPossible: boolean = (
-    (this.inputFullName != "") &&
-    (this.inputUsername != "") &&
-    (this.inputPassword != "") &&
-    (this.inputGitHubAccount != "")
-  );
 
   constructor(
     public websocketService: WebsocketService
@@ -32,6 +26,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+  }
+
+  public isLoginPossible(): boolean {
+    return (
+      (this.inputFullName != "") &&
+      (this.inputUsername != "") &&
+      (this.inputPassword != "") &&
+      (this.inputGitHubAccount != "")
+    );
   }
 
   private init(): void {
@@ -50,7 +53,7 @@ export class AppComponent implements OnInit {
     if (!this.isLoginPossible) {
       return;
     }
-    this.hasAuthed = this.isLoginPossible;
+    this.hasAuthed = this.isLoginPossible();
   }
 
   public onSendMsgBtnClicked(msg: string) {
