@@ -19,6 +19,12 @@ export class AppComponent implements OnInit {
   public inputUsername: String = "";
   public inputPassword: String = "";
   public inputGitHubAccount: String = "";
+  public isLoginPossible: boolean = (
+    (this.inputFullName != "") &&
+    (this.inputUsername != "") &&
+    (this.inputPassword != "") &&
+    (this.inputGitHubAccount != "")
+  );
 
   constructor(
     public websocketService: WebsocketService
@@ -38,6 +44,12 @@ export class AppComponent implements OnInit {
         this.messages.push(newMsg)
       }
     )
+  }
+
+  public onLoginBtnClicked() {
+    if (!this.isLoginPossible) {
+      return;
+    }
   }
 
   public onSendMsgBtnClicked(msg: string) {

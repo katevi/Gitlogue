@@ -18,14 +18,14 @@ export class WebsocketService {
   private messabePublishing$: Subscription = new Subscription();
   private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
 
-  public connect() { 
+  public connect() {
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(ws);
     const _this = this;
     _this.stompClient.connect({}, function (frame) {
-        _this.stompClient.subscribe("/topic/publishedMessages", function (message) {
-            _this.onMessageReceived(message);
-        });
+      _this.stompClient.subscribe("/topic/publishedMessages", function (message) {
+        _this.onMessageReceived(message);
+      });
     });
 
   }
@@ -36,7 +36,7 @@ export class WebsocketService {
     this.lastReceivedMsg$.next(newMsg);
   }
 
-  
+
   sendMsg(msg: string, senderName: string) {
     let info: Object = {
       content: msg,
@@ -49,11 +49,11 @@ export class WebsocketService {
     return this.lastReceivedMsg$.asObservable();
   }
 
-  public geStompClient() { 
+  public geStompClient() {
     return this.stompClient;
   }
 
-  public getMsgSubscription() { 
+  public getMsgSubscription() {
     return this.stompClient.subscribe("/topic/publishedMessages");
   }
 } 
