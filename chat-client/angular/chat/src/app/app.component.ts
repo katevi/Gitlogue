@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
 import { Message } from './models/message.model';
+import { User } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,10 @@ export class AppComponent implements OnInit {
   public messages: Message[] = [];
   public hasAuthed: boolean = false;
   // -- User Login info
-  public inputFullName: String = "";
-  public inputUsername: String = "";
-  public inputPassword: String = "";
-  public inputGitHubAccount: String = "";
+  public inputFullName: string = "";
+  public inputUsername: string = "";
+  public inputPassword: string = "";
+  public inputGitHubAccount: string = "";
 
   constructor(
     public websocketService: WebsocketService
@@ -50,9 +51,13 @@ export class AppComponent implements OnInit {
   }
 
   public onLoginBtnClicked() {
-    if (!this.isLoginPossible) {
+    if (!this.isLoginPossible()) {
       return;
     }
+    let user = new User(this.inputFullName,
+                        this.inputUsername,
+                        this.inputPassword,
+                        this.inputGitHubAccount);
     this.hasAuthed = this.isLoginPossible();
   }
 
