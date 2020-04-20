@@ -18,15 +18,16 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.websocketService.connect();
-    this.websocketService.geStompClient().subscribe("/topic/publishedMessages", function (message) {
-      console.log("mrssage bas been received")
-    });
-}
+    this.init();
+   }
 
-
-  onMessageReceived(message) {
-    console.log("[component]:: " + JSON.parse(message.body).content);
+private init(): void {
+  this.websocketService.connect();
+  this.websocketService.getLastReceivedMsg().subscribe(
+    (newMsg: String) => {
+      this.messages.push(newMsg)
+    }
+  )
 }
 
   public onSendMsgBtnClicked(msg: String) {
@@ -35,9 +36,6 @@ export class AppComponent implements OnInit {
       return;
     }
     this.websocketService.sendMsg(msg);
-    msg = `${new Date().getTime()} User: ${msg}`
-    this.messages.push(msg)
-    console.log(`New messages container: ${this.messages}`)
     this.currentMsg = "";
   }
 }
