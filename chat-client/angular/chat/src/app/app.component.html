@@ -43,21 +43,24 @@
     <form>
         <div class="form-group">
             <label for="fullNameINput">Full name</label>
-            <input type="password" class="form-control" id="fullNameINput" placeholder="Enter your full name ...">
+            <input type="password" class="form-control" id="fullNameINput" [(ngModel)]="this.inputFullName" 
+            placeholder="Enter your full name ...">
         </div>
         <div class="form-group">
                 <label for="usernameInput">Username</label>
                 <input name="userNameInput" type="email" class="form-control" id="usernameInput"
-                    placeholder="Enter your displayng name..." [(ngModel)]="this.enteredUsername">
+                    placeholder="Enter your displayng name..." [(ngModel)]="this.inputUsername">
                 <small id="emailHelp" class="form-text text-muted">Please, enter your name for the dialoque.</small>
             </div>
         <div class="form-group">
             <label for="passwordInput">Password</label>
-            <input type="password" class="form-control" id="passwordInput" placeholder="Enter your password..">
+            <input type="password" class="form-control" id="passwordInput" (ngModel)]="this.inputPassword"
+            placeholder="Enter your password..">
         </div>
         <div class="form-group">
             <label for="githubLinkInput">GitHub account link</label>
-            <input type="password" class="form-control" id="githubLinkInput" placeholder="Enter URL into your GitHub account...">
+            <input type="password" class="form-control" id="githubLinkInput" (ngModel)]="this.inputGitHubAccount"
+            placeholder="Enter URL into your GitHub account...">
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>

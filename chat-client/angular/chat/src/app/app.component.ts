@@ -12,9 +12,13 @@ export class AppComponent implements OnInit {
   title = 'Chat';
 
   public currentMsg: String = "";
-  public enteredUsername: String = "";
   public messages: Message[] = [];
   public hasAuthed: boolean = false;
+  // -- User Login info
+  public inputFullName: String = "";
+  public inputUsername: String = "";
+  public inputPassword: String = "";
+  public inputGitHubAccount: String = "";
 
   constructor(
     public websocketService: WebsocketService
