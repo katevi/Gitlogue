@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
+import { Message } from './models/message.model';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Chat';
 
   public currentMsg: String = "";
-  public messages: String[] = [];
+  public messages: Message[] = [];
 
   constructor(
     public websocketService: WebsocketService
@@ -24,7 +25,10 @@ export class AppComponent implements OnInit {
   private init(): void {
     this.websocketService.connect();
     this.websocketService.getLastReceivedMsg().subscribe(
-      (newMsg: String) => {
+      (newMsg: Message) => {
+        if (newMsg == null) {
+          return;
+        }
         this.messages.push(newMsg)
       }
     )

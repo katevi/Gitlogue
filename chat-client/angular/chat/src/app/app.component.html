@@ -23,9 +23,11 @@
               <thead>
                 <th>Dialogue</th>
                 <!-- Loop over existing messages in dialoque -->
-                <tr *ngFor="let msg of this.messages">
-                    {{ msg }}
-                </tr>
+                <ng-container *ngIf="this.messages">
+                        <tr *ngFor="let msg of this.messages">
+                                {{ msg.getSender() }}: {{ msg.getContent() }}
+                            </tr>
+                </ng-container>
               </thead>
               <tbody id="dialogue">
               </tbody>

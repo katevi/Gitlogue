@@ -4,6 +4,7 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client'
 
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class WebsocketService {
 
   private stompClient: any;
   private messabePublishing$: Subscription = new Subscription();
-  private lastReceivedMsg$: BehaviorSubject<String> = new BehaviorSubject<String>("");
+  private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
 
   public connect() { 
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
@@ -30,9 +31,9 @@ export class WebsocketService {
   }
 
   onMessageReceived(message) {
-    let msgContent = JSON.parse(message.body).content;
-    this.lastReceivedMsg$.next(msgContent);
-    console.log("Message Recieved from Server :: " + message.body);
+    let msgBody: any = JSON.parse(message.body);
+    let newMsg = new Message(msgBody.sender, msgBody.content);
+    this.lastReceivedMsg$.next(newMsg);
   }
 
   
@@ -48,7 +49,7 @@ export class WebsocketService {
     this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(info));
   }
 
-  public getLastReceivedMsg(): Observable<String> {
+  public getLastReceivedMsg(): Observable<Message> {
     return this.lastReceivedMsg$.asObservable();
   }
 
