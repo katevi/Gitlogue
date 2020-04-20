@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public currentMsg: String = "";
   public messages: Message[] = [];
   public hasAuthed: boolean = false;
+
   // -- User Login info
   public inputFullName: string = "";
   public inputUsername: string = "";
@@ -29,6 +30,9 @@ export class AppComponent implements OnInit {
     this.init();
   }
 
+  /**
+   * Indicates whether login attempt should be allowed.
+   */
   public isLoginPossible(): boolean {
     return (
       (this.inputFullName != "") &&
@@ -38,30 +42,25 @@ export class AppComponent implements OnInit {
     );
   }
 
-  private init(): void {
-    this.websocketService.connect();
-    this.websocketService.getLastReceivedMsg().subscribe(
-      (newMsg: Message) => {
-        if (newMsg == null) {
-          return;
-        }
-        this.messages.push(newMsg)
-      }
-    )
-  }
-
+  /**
+   * Handles login button click.
+   */
   public onLoginBtnClicked() {
     if (!this.isLoginPossible()) {
       return;
     }
     let user = new User(this.inputFullName,
-                        this.inputUsername,
-                        this.inputPassword,
-                        this.inputGitHubAccount);
+      this.inputUsername,
+      this.inputPassword,
+      this.inputGitHubAccount);
     this.hasAuthed = this.isLoginPossible();
     this.websocketService.registerUser(user);
   }
 
+  /**
+   * Handles 'Send' button press.
+   * @param msg message to be sent.
+   */
   public onSendMsgBtnClicked(msg: string) {
     if (msg == "") {
       console.error("empty msg!")
@@ -69,5 +68,23 @@ export class AppComponent implements OnInit {
     }
     this.websocketService.sendMsg(msg, "Andrey");
     this.currentMsg = "";
+  }
+
+  /**
+ * Perform component initialization.
+ */
+  private init(): void {
+    this.websocketService.connect();
+    // -- Define logic for new message receive
+    this.websocketService.getLastReceivedMsg().subscribe(
+      (newMsg: Message) => {
+        // -- the function is triggered every time ...
+        // -- ... new message is received vai STOMP.
+        if (newMsg == null) {
+          return;
+        }
+        this.messages.push(newMsg)
+      }
+    )
   }
 }

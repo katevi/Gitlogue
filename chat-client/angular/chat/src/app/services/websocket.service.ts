@@ -17,11 +17,13 @@ export class WebsocketService {
   private MSG_SERVER_SOCKET_URL = `${this.TARGET_MSG_SERVER}/chat-websocket`;
 
   private stompClient: any;
-  private messabePublishing$: Subscription = new Subscription();
   private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
 
-  constructor(private http: HttpClient) {}
-  
+  constructor(private http: HttpClient) { }
+
+  /**
+   * Connects onto web socket.
+   */
   public connect() {
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(ws);
@@ -34,14 +36,20 @@ export class WebsocketService {
 
   }
 
-  onMessageReceived(message) {
+  /**
+   * Triggers each time a new message is received.
+   */
+  private onMessageReceived(message) {
     let msgBody: any = JSON.parse(message.body);
     let newMsg = new Message(msgBody.sender, msgBody.content);
     this.lastReceivedMsg$.next(newMsg);
   }
 
 
-  sendMsg(msg: string, senderName: string) {
+  /**
+   * Sends new message via STOMP.
+   */
+  public sendMsg(msg: string, senderName: string) {
     let info: Object = {
       content: msg,
       sender: senderName
@@ -49,18 +57,18 @@ export class WebsocketService {
     this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(info));
   }
 
+  /**
+   * Return subscription for last message received ...
+   * ... via web socket.
+   */
   public getLastReceivedMsg(): Observable<Message> {
     return this.lastReceivedMsg$.asObservable();
   }
 
-  public geStompClient() {
-    return this.stompClient;
-  }
-
-  public getMsgSubscription() {
-    return this.stompClient.subscribe("/topic/publishedMessages");
-  }
-
+  /**
+   * Sends POST request for user registration.
+   * @param newUser user instance.
+   */
   public registerUser(newUser: User) {
     let newUserFormData = new FormData();
     let userParam = new Blob([JSON.stringify(newUser)], { type: "application/json" });
