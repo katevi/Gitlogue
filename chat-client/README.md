@@ -1,19 +1,45 @@
 # Chat
-Pet-project of participant Dell mentorship program. Made with Java. 
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
 
+## Development server
 
-### Client part
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-To execute client part, be sure you have Node.js and npm installed on your PC.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Build
 
-### Execution
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-* ```npm install```
+## Running unit tests
 
-* ```npm start```
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-* navigate to ```http://localhost:8081``` to use client program
+## Running end-to-end tests
 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Troubleshooting
+
+1. StompJS installation
+```
+ERROR in ./node_modules/stompjs/lib/stomp-node.js
+Module not found: Error: Can't resolve 'net' in '/Users/Andrey/Developer/mentorship/KateChat/Chat/chat-client/angular/chat/node_modules/stompjs/lib'
+```
+Fixed by `npm i net -S`
+
+2. 'Global not defined'
+Add the following code into `polyfills.ts`:
+```
+/**
+ * Workaround for https://github.com/angular/angular-cli/issues/8160
+ */
+(window as any).global = window; 
+```
