@@ -61,12 +61,13 @@ export class AppComponent implements OnInit {
    * Handles 'Send' button press.
    * @param msg message to be sent.
    */
-  public onSendMsgBtnClicked(msg: string) {
-    if (msg == "") {
+  public onSendMsgBtnClicked(msgContent: string) {
+    if (msgContent == "") {
       console.error("empty msg!")
       return;
     }
-    this.websocketService.sendMsg(msg, "Andrey");
+    let msg: Message = new Message(this.inputFullName, msgContent);
+    this.websocketService.sendMsg(msg);
     this.currentMsg = "";
   }
 

@@ -48,13 +48,11 @@ export class WebsocketService {
 
   /**
    * Sends new message via STOMP.
+   * @param msg object represents message. Make sure ...
+   * ... to have it sync up with REST API model.
    */
-  public sendMsg(msg: string, senderName: string) {
-    let info: Object = {
-      content: msg,
-      sender: senderName
-    }
-    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(info));
+  public sendMsg(msg: Message) {
+    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
   }
 
   /**
