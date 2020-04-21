@@ -26,7 +26,7 @@ public class UserFindingController {
 
     @GetMapping("/fullName/{fullName}")
     public User getUserByFullName(@PathVariable("fullName") String fullName) {
-        return userService.findByUserId(fullName);
+        return userService.findByFullName(fullName);
     }
 
     @GetMapping("/")
