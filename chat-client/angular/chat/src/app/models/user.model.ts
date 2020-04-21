@@ -1,10 +1,10 @@
 export class User {
     constructor(
-        private fullName    : string,
-        private userName    : string,
-        private password    : string,
+        private fullName: string,
+        private userName: string,
+        private password: string,
         private githubAccUrl: string
-    ) {}
+    ) { }
 
     public getFullName(): string {
         return this.fullName;

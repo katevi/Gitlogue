@@ -68,11 +68,11 @@ export class WebsocketService {
    * @param newUser user instance.
    */
   public registerUser(newUser: User) {
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
-                          JSON.stringify(newUser), 
-                          options).subscribe(response => {
-                            console.log("Reigstration response: " + JSON.stringify(response))
-                          });
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`,
+      JSON.stringify(newUser),
+      options).subscribe(response => {
+        console.log("Reigstration response: " + JSON.stringify(response))
+      });
   }
-} 
+}
