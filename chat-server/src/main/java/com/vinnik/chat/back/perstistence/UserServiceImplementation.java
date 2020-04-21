@@ -26,6 +26,18 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    public User findByFullName(String fullName) {
+        User user = userRepository.findByFullName(fullName);
+        return user;
+    }
+
+    @Override
+    public User findByUserId(String id) {
+        User user = userRepository.findByUserId(id);
+        return user;
+    }
+
+    @Override
     public User findByNickname(String nickname) {
         return userRepository.findByNickname(nickname);
     }
