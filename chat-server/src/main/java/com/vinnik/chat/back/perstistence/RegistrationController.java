@@ -45,4 +45,12 @@ public class RegistrationController {
         userService.deleteUser(nickname);
         return new ResponseEntity<>("User has been successfully removed", HttpStatus.NO_CONTENT);
     }
+
+    @RequestMapping(
+            value = "/**",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handle() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
