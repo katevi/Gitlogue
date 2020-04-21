@@ -24,5 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         //FIXME IN NEXT PR: all requests can register new user
         http.csrf().disable().authorizeRequests().antMatchers("/*").permitAll();
+        http.cors().and();
     }
 }
