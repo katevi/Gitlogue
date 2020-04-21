@@ -1,5 +1,7 @@
 package com.vinnik.chat.back.perstistence;
 
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface UserService {
@@ -7,4 +9,6 @@ public interface UserService {
     void saveOrUpdateUser(User user);
     List<User> findAll();
     void deleteUser(String nickname);
+    User findByFullName(@Param("fullName") String fullName);
+    User findByUserId(@Param("id") String id);
 }

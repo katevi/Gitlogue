@@ -10,8 +10,10 @@ import java.time.Instant;
 import java.util.Date;
 
 public class User {
-
-    @Id private String id;
+    @Id
+    @NotNull
+    @NotEmpty
+    private String userId;
 
     @NotNull
     @NotEmpty
@@ -33,6 +35,13 @@ public class User {
     @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private long timestamp = Instant.now().getEpochSecond();
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getPassword() {
         return this.password;
