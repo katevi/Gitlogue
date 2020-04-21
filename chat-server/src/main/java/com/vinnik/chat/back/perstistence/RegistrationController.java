@@ -46,10 +46,10 @@ public class RegistrationController {
         return new ResponseEntity<>("User has been successfully removed", HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(
-            value = "/**",
-            method = RequestMethod.OPTIONS
-    )
+    /**
+     * Allows browsers to make preflight requests.
+     */
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
     public ResponseEntity handle() {
         return new ResponseEntity(HttpStatus.OK);
     }
