@@ -70,9 +70,11 @@ export class WebsocketService {
    * @param newUser user instance.
    */
   public registerUser(newUser: User) {
-    let newUserFormData = new FormData();
-    let userParam = new Blob([JSON.stringify(newUser)], { type: "application/json" });
-    newUserFormData.append('user', userParam);
-    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/user/`, newUserFormData)
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
+                          JSON.stringify(newUser), 
+                          options).subscribe(response => {
+                            console.log("Reigstration response: " + JSON.stringify(response))
+                          });
   }
 } 
