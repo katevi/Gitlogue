@@ -14,17 +14,17 @@ public class UserFindingController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{nickname}")
+    @GetMapping("/nickname/{nickname}")
     public User getUserByUserNickname(@PathVariable("nickname") String nickname) {
         return userService.findByNickname(nickname);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public User getUserById(@PathVariable("id") String id) {
         return userService.findByUserId(id);
     }
 
-    @GetMapping("/{fullName}")
+    @GetMapping("/fullName/{fullName}")
     public User getUserByFullName(@PathVariable("fullName") String fullName) {
         return userService.findByUserId(fullName);
     }
