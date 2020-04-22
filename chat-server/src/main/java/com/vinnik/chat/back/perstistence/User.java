@@ -1,6 +1,7 @@
 package com.vinnik.chat.back.perstistence;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
@@ -34,6 +35,17 @@ public class User {
     @NotNull
     @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private long timestamp = Instant.now().getEpochSecond();
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
+
+    @DBRef
+    private Avatar avatar;
 
     public String getUserId() {
         return userId;
