@@ -34,6 +34,7 @@ public class RegistrationController {
     @SendTo("/response")
     public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
         try {
+            System.out.println("User = " + user.getNickname() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
             return new ResponseEntity("User added successfully", HttpStatus.OK);
@@ -43,18 +44,19 @@ public class RegistrationController {
         }
     }
 
-    @PostMapping("/{id}/avatar")
+    /*@PostMapping("/{id}/avatar")
     public ResponseEntity<?> setAvatar(@PathVariable String id, @RequestParam MultipartFile file) {
         try {
             User user = userService.findByUserId(id);
             user.setAvatar(file.getBytes());
             userService.saveOrUpdateUser(user);
+            System.out.println("Received avatar");
             return new ResponseEntity("User's avatar added successfully", HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
 
     @DeleteMapping("/{nickname}")
