@@ -3,7 +3,8 @@ export class User {
         private fullName: string,
         private userName: string,
         private password: string,
-        private githubAccUrl: string
+        private githubAccUrl: string,
+        private avatar: File
     ) { }
 
     public getFullName(): string {

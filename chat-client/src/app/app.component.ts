@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
     let user = new User(this.inputFullName,
       this.inputUsername,
       this.inputPassword,
-      this.inputGitHubAccount);
+      this.inputGitHubAccount, null);
     this.hasAuthed = this.isLoginPossible();
     this.websocketService.registerUser(user);
   }
