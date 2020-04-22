@@ -36,16 +36,17 @@ public class User {
     @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private long timestamp = Instant.now().getEpochSecond();
 
-    public Avatar getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Avatar avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
-    @DBRef
-    private Avatar avatar;
+    @NotNull
+    @Column(name= "avatar")
+    private byte[] avatar;
 
     public String getUserId() {
         return userId;
