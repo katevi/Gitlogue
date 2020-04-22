@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
 import { Message } from './models/message.model';
 import { User } from './models/user.model';
+import { HttpCLient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,16 @@ export class AppComponent implements OnInit {
   public inputPassword: string = "";
   public inputGitHubAccount: string = "";
 
+  public selectedFile;
+  public event1;
+  imgUrl : any;
+  receivedImageDate : any;
+  base64Data : any;
+  convertedImage : any;
+
   constructor(
-    public websocketService: WebsocketService
+    public websocketService: WebsocketService,
+    private httpClient : HttpClient
   ) { }
 
   ngOnInit(): void {
