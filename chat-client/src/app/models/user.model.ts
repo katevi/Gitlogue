@@ -18,7 +18,7 @@ export class User {
         return this.password;
     }
 
-    public getGethibAccUrl(): string {
+    public getGithubAccUrl(): string {
         return this.githubAccUrl;
     }
 }
