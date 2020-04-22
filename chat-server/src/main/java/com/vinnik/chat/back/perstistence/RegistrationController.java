@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("registration/users")
 public class RegistrationController {
     @Autowired
@@ -44,5 +45,13 @@ public class RegistrationController {
     public ResponseEntity<?> deleteUser(@PathVariable("nickname") String nickname) {
         userService.deleteUser(nickname);
         return new ResponseEntity<>("User has been successfully removed", HttpStatus.NO_CONTENT);
+    }
+
+    /**
+     * Allows browsers to make preflight requests.
+     */
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity handle() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
