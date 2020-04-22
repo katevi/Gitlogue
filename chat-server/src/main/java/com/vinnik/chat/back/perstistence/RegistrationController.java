@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,7 +32,7 @@ public class RegistrationController {
     @SendTo("/response")
     public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
         try {
-            System.out.println("User = " + user.getNickname() + " " + user.getAvatar() + "!!!");
+            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
             return new ResponseEntity("User added successfully", HttpStatus.OK);
