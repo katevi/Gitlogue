@@ -35,10 +35,10 @@ public class RegistrationController {
             System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
-            return new ResponseEntity("User added successfully", HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Nickname already exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
@@ -60,7 +60,7 @@ public class RegistrationController {
     @DeleteMapping("/{nickname}")
     public ResponseEntity<?> deleteUser(@PathVariable("nickname") String nickname) {
         userService.deleteUser(nickname);
-        return new ResponseEntity<>("User has been successfully removed", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
