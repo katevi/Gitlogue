@@ -31,17 +31,21 @@ public class RegistrationController {
         return userService.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping(path="/", consumes="application/json", produces="application/json")
     @SendTo("/response")
-    public ResponseEntity<?> saveOrUpdateUser(@RequestBody User user) {
+    public User saveOrUpdateUser(@RequestBody User user) {
         try {
             System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
-            return new ResponseEntity(HttpStatus.OK);
+            String nickname = user.getUserName();
+            User responseUser = new User();
+            responseUser.setUserName(user.getUserName());
+            responseUser.setPassword(user.getPassword());
+            return responseUser;
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return null;
         }
     }
 
