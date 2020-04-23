@@ -3,6 +3,7 @@ import { WebsocketService } from './services/websocket.service';
 import { Message } from './models/message.model';
 import { User } from './models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Avatar } from './models/avatar.model';
 
 @Component({
   selector: 'app-root',
@@ -54,7 +55,7 @@ export class AppComponent implements OnInit {
 
 
  // This part is for uploading
- onUpload() {
+ /*onUpload() {
 
 
   const uploadData = new FormData();
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit {
             );
 
 
- }
+ }*/
 
   /**
    * Indicates whether login attempt should be allowed.
@@ -96,9 +97,12 @@ export class AppComponent implements OnInit {
     let user = new User(this.inputFullName,
       this.inputUsername,
       this.inputPassword,
-      this.inputGitHubAccount);
+      this.inputGitHubAccount,
+      null);
+    let avatar = new Avatar(this.selectedFile, 
+      this.selectedFile.name);
     this.hasAuthed = this.isLoginPossible();
-    this.websocketService.registerUser(user);
+    this.websocketService.registerUser(user, avatar);
   }
 
   /**

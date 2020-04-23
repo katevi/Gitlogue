@@ -1,9 +1,12 @@
+import { Avatar } from "./avatar.model";
+
 export class User {
     constructor(
         private fullName: string,
         private userName: string,
         private password: string,
         private githubAccUrl: string,
+        private avatar : Avatar
     ) { }
 
     public getFullName(): string {

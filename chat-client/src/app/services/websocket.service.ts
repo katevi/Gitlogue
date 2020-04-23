@@ -7,6 +7,8 @@ import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../models/message.model';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Avatar } from '../models/avatar.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -67,11 +69,34 @@ export class WebsocketService {
    * Sends POST request for user registration.
    * @param newUser user instance.
    */
-  public registerUser(newUser: User) {
+  public registerUser(newUser: User, avatar: Avatar) {
     const options = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`,
+    /*return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`,
       JSON.stringify(newUser), options).subscribe(response => {
+
         console.log("Reigstration response: " + JSON.stringify(response))
-      });
+      });*/
+    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
+      newUser,
+      {observe:'response'}).subscribe( response => {
+        console.log(response.body);
+      },
+      error => console.log(error)
+    ) 
+    /*return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
+      newUser, 
+      options).subscribe(response => {
+      const uploadData = new FormData();
+      uploadData.append('avatar', avatar.getFile, avatar.getFilename);
+
+      this.http.post('http://localhost:8080/registration/users/avatar/k', uploadData)
+        .subscribe(
+               res => {console.log(res);
+                       this.receivedImageData = res;
+                       this.base64Data = this.receivedImageData.pic;
+                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data; },
+               err => console.log('Error Occured durinng saving: ' + err)
+            );
+    });*/
   }
 }
