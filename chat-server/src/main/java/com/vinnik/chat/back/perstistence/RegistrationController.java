@@ -5,7 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -42,10 +45,14 @@ public class RegistrationController {
         }
     }
 
-    /*@PostMapping("/{id}/avatar")
-    public ResponseEntity<?> setAvatar(@PathVariable String id, @RequestParam MultipartFile file) {
+
+
+    @PostMapping("/avatar/{nickname}")
+    public ResponseEntity<?> setAvatar(@PathVariable String nickname, @RequestParam("avatar") MultipartFile file) {
+        System.out.println(file.getName() + "<- it is filename");
         try {
-            User user = userService.findByUserId(id);
+            System.out.print(file.getName() + " " + file.getBytes());
+            User user = userService.findByNickname(nickname);
             user.setAvatar(file.getBytes());
             userService.saveOrUpdateUser(user);
             System.out.println("Received avatar");
@@ -54,7 +61,7 @@ public class RegistrationController {
             e.printStackTrace();
             return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
 
     @DeleteMapping("/{nickname}")
