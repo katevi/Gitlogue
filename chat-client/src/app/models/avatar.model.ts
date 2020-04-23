@@ -8,7 +8,7 @@ export class Avatar {
         return this.filename;
     }
 
-    public getFile() : File {
+    public getFile() : Blob {
         return this.file;
     }
 }

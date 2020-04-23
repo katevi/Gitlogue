@@ -69,34 +69,25 @@ export class WebsocketService {
    * Sends POST request for user registration.
    * @param newUser user instance.
    */
-  public registerUser(newUser: User, avatar: Avatar) {
+  public registerUser(newUser: User, avatar: any) {
     const options = { headers: { 'Content-Type': 'application/json' } };
-    /*return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`,
-      JSON.stringify(newUser), options).subscribe(response => {
-
-        console.log("Reigstration response: " + JSON.stringify(response))
-      });*/
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
-        console.log(response.body);
-      },
-      error => console.log(error)
-    ) 
-    /*return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
-      newUser, 
-      options).subscribe(response => {
-      const uploadData = new FormData();
-      uploadData.append('avatar', avatar.getFile, avatar.getFilename);
+        console.log('haha' + response.body);
 
-      this.http.post('http://localhost:8080/registration/users/avatar/k', uploadData)
-        .subscribe(
-               res => {console.log(res);
-                       this.receivedImageData = res;
-                       this.base64Data = this.receivedImageData.pic;
-                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data; },
-               err => console.log('Error Occured durinng saving: ' + err)
+        const uploadData = new FormData();
+      
+        uploadData.append('avatar', avatar, avatar.name);
+        const nickname = newUser.getUsername();
+        console.log('user nickname = ' + nickname);
+        return this.http.post(`http://localhost:8080/registration/users/avatar/${nickname}`, 
+        uploadData).subscribe(
+               res => {console.log(res);},
+               err => console.log('Error Occured during saving: ' + err)
             );
-    });*/
+      },
+      error => console.log(error)  
+    ) 
   }
 }

@@ -99,10 +99,10 @@ export class AppComponent implements OnInit {
       this.inputPassword,
       this.inputGitHubAccount,
       null);
-    let avatar = new Avatar(this.selectedFile, 
-      this.selectedFile.name);
+    /*let avatar = new Avatar(this.selectedFile, 
+      this.selectedFile.name);*/
     this.hasAuthed = this.isLoginPossible();
-    this.websocketService.registerUser(user, avatar);
+    this.websocketService.registerUser(user, this.selectedFile);
   }
 
   /**
