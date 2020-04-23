@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   public inputPassword: string = "";
   public inputGitHubAccount: string = "";
 
-  public selectedFile;
+  public selectedFile : File;
   public event1;
   imgURL: any;
   receivedImageData: any;
@@ -58,16 +58,15 @@ export class AppComponent implements OnInit {
 
 
   const uploadData = new FormData();
-  uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+  uploadData.append('avatar', this.selectedFile, this.selectedFile.name);
 
-
-  this.httpClient.post('http://localhost:8080/check/upload', uploadData)
+  this.httpClient.post('http://localhost:8080/registration/users/avatar/k', uploadData)
   .subscribe(
                res => {console.log(res);
                        this.receivedImageData = res;
                        this.base64Data = this.receivedImageData.pic;
                        this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data; },
-               err => console.log('Error Occured duringng saving: ' + err)
+               err => console.log('Error Occured durinng saving: ' + err)
             );
 
 
@@ -93,10 +92,11 @@ export class AppComponent implements OnInit {
     if (!this.isLoginPossible()) {
       return;
     }
+
     let user = new User(this.inputFullName,
       this.inputUsername,
       this.inputPassword,
-      this.inputGitHubAccount, null);
+      this.inputGitHubAccount);
     this.hasAuthed = this.isLoginPossible();
     this.websocketService.registerUser(user);
   }
