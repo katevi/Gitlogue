@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
 import { Message } from './models/message.model';
 import { User } from './models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +23,54 @@ export class AppComponent implements OnInit {
   public inputPassword: string = "";
   public inputGitHubAccount: string = "";
 
+  public selectedFile : File;
+  public event1;
+  imgURL: any;
+  receivedImageData: any;
+  base64Data: any;
+  convertedImage: any;
+
   constructor(
-    public websocketService: WebsocketService
+    public websocketService: WebsocketService,
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.init();
   }
+
+  public  onFileChanged(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+
+    // Below part is used to display the selected image
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event2) => {
+      this.imgURL = reader.result;
+  };
+
+ }
+
+
+ // This part is for uploading
+ onUpload() {
+
+
+  const uploadData = new FormData();
+  uploadData.append('avatar', this.selectedFile, this.selectedFile.name);
+
+  this.httpClient.post('http://localhost:8080/registration/users/avatar/k', uploadData)
+  .subscribe(
+               res => {console.log(res);
+                       this.receivedImageData = res;
+                       this.base64Data = this.receivedImageData.pic;
+                       this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data; },
+               err => console.log('Error Occured durinng saving: ' + err)
+            );
+
+
+ }
 
   /**
    * Indicates whether login attempt should be allowed.
@@ -42,6 +84,7 @@ export class AppComponent implements OnInit {
     );
   }
 
+
   /**
    * Handles login button click.
    */
@@ -49,6 +92,7 @@ export class AppComponent implements OnInit {
     if (!this.isLoginPossible()) {
       return;
     }
+
     let user = new User(this.inputFullName,
       this.inputUsername,
       this.inputPassword,
