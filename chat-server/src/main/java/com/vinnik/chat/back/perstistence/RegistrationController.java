@@ -33,16 +33,15 @@ public class RegistrationController {
 
     @PostMapping(path="/", consumes="application/json", produces="application/json")
     @SendTo("/response")
-    public User saveOrUpdateUser(@RequestBody User user) {
+    public String[] saveOrUpdateUser(@RequestBody User user) {
         try {
             System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
-            String nickname = user.getUserName();
-            User responseUser = new User();
-            responseUser.setUserName(user.getUserName());
-            responseUser.setPassword(user.getPassword());
-            return responseUser;
+            String[] userData = new String[2];
+            userData[0] = user.getUserName();
+            userData[1] = user.getPassword();
+            return userData;
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
             return null;
