@@ -3,7 +3,7 @@ export class User {
         private fullName: string,
         private userName: string,
         private password: string,
-        private githubAccUrl: string,
+        private githubAccUrl: string
     ) { }
 
     public getFullName(): string {
@@ -21,8 +21,4 @@ export class User {
     public getGethibAccUrl(): string {
         return this.githubAccUrl;
     }
-
-    /*public getAvatar() : File {
-        return this.avatar;
-    }*/
 }
