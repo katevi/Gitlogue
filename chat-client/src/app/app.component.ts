@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   public inputGitHubAccount: string = "";
 
   public selectedFile: File;
-  public event1: any;
   imgURL: any;
 
 
@@ -38,14 +37,18 @@ export class AppComponent implements OnInit {
     this.init();
   }
 
-  public  onFileChanged(event) {
-    console.log(event);
-    this.selectedFile = event.target.files[0];
+  /**
+   * Handles clicking button for avatar choice.
+   * @param uploadClicked
+   */
+  public  onFileChanged(uploadClicked) {
+    console.log(uploadClicked);
+    this.selectedFile = uploadClicked.target.files[0];
 
     // Below part is used to display the selected image
     let reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onload = (event2) => {
+    reader.readAsDataURL(uploadClicked.target.files[0]);
+    reader.onload = (event) => {
       this.imgURL = reader.result;
   };
 

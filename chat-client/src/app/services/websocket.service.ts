@@ -67,13 +67,8 @@ export class WebsocketService {
 
 
   private checkResponseForServer(response: HttpResponse<Object>, user : User): boolean {
-    //console.log('haha' + response.body);
     let userParams: string[] = JSON.parse(JSON.stringify(response.body));
-    //console.log(userParams[0] + " " + userParams[1]);
-    if (userParams[0] == user.getUsername() && userParams[1] == user.getPassword()) {
-      return true;
-    }
-    return false;
+    return (userParams[0] == user.getUsername() && userParams[1] == user.getPassword());
   }
 
   /**
@@ -83,14 +78,20 @@ export class WebsocketService {
    */
   public registerUser(newUser: User, avatar: Avatar) {
     const options = { headers: { 'Content-Type': 'application/json' } };
+    // Firstly sends to the server user metadata without avatar to check if such user 
+    // is not exist yet
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
         
+        // Server returns response: if user is not exist it will be entered password and nickname,
+        // otherwise user exists already and client do not has to send user's avatar
         if (!this.checkResponseForServer(response, newUser) || avatar == null) {
           return;
         }
 
+        // Entered registration data is correct - client sends avatar to server
+        // Forming multipart data to send file
         const uploadData = new FormData();
         uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
 
