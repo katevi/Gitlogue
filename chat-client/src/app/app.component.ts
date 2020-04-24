@@ -82,8 +82,9 @@ export class AppComponent implements OnInit {
       let avatar = new Avatar(this.selectedFile, 
       this.selectedFile.name);
       this.websocketService.registerUser(user, avatar);
+    } else {
+      this.websocketService.registerUser(user, null);
     }
-    this.websocketService.registerUser(user, null);
   }
 
   /**
