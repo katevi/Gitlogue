@@ -35,12 +35,14 @@ public class RegistrationController {
     @SendTo("/response")
     public String[] saveOrUpdateUser(@RequestBody User user) {
         try {
-            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!");
             userValidator.validateNewUser(userService, user);
-            userService.saveOrUpdateUser(user);
+
             String[] userData = new String[2];
             userData[0] = user.getUserName();
             userData[1] = user.getPassword();
+            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!" + user.getPassword());
+            userService.saveOrUpdateUser(user);
+            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!" + user.getPassword());
             return userData;
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
