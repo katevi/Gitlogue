@@ -61,10 +61,10 @@ public class RegistrationController {
             user.setAvatar(file.getBytes());
             userService.saveOrUpdateUser(user);
             System.out.println("Received avatar");
-            return new ResponseEntity("User's avatar added successfully", HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
