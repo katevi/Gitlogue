@@ -69,18 +69,16 @@ export class WebsocketService {
    * Sends POST request for user registration.
    * @param newUser user instance.
    */
-  public registerUser(newUser: User, avatar: any) {
+  public registerUser(newUser: User, avatar: Avatar) {
     const options = { headers: { 'Content-Type': 'application/json' } };
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
         console.log('haha' + response.body);
-
-        const uploadData = new FormData();
-      
-        uploadData.append('avatar', avatar, avatar.name);
         const nickname = newUser.getUsername();
         console.log('user nickname = ' + nickname);
+        const uploadData = new FormData();
+        uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
         return this.http.post(`http://localhost:8080/registration/users/avatar/${nickname}`, 
         uploadData).subscribe(
                res => {console.log(res);},
