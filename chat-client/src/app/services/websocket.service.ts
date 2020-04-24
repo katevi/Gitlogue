@@ -6,7 +6,7 @@ import * as SockJS from 'sockjs-client'
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../models/message.model';
 import { User } from '../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Avatar } from '../models/avatar.model';
 import { map } from 'rxjs/operators';
 
@@ -65,6 +65,17 @@ export class WebsocketService {
     return this.lastReceivedMsg$.asObservable();
   }
 
+
+  private checkResponseForServer(response: HttpResponse<Object>, user : User): boolean {
+    //console.log('haha' + response.body);
+    let userParams: string[] = JSON.parse(JSON.stringify(response.body));
+    //console.log(userParams[0] + " " + userParams[1]);
+    if (userParams[0] == user.getUsername() && userParams[1] == user.getPassword()) {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Sends POST request for user registration.
    * @param newUser user instance.
@@ -74,12 +85,15 @@ export class WebsocketService {
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
-        console.log('haha' + response.body);
-        const nickname = newUser.getUsername();
-        console.log('user nickname = ' + nickname);
+        
+        if (!this.checkResponseForServer(response, newUser)) {
+          return;
+        }
+
         const uploadData = new FormData();
         uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
-        return this.http.post(`http://localhost:8080/registration/users/avatar/${nickname}`, 
+
+        return this.http.post(`http://localhost:8080/registration/users/avatar/${newUser.getUsername()}`, 
         uploadData).subscribe(
                res => {console.log(res);},
                err => console.log('Error Occured during saving: ' + err)
