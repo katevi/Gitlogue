@@ -67,8 +67,7 @@
             <img [src]="imgURL" height="200" *ngIf="imgURL">
         </div>
         
-        <input type="button" (click)="onUpload()" value="upload">
-        <button type="submit" [ngClass]="this.isLoginPossible() ? 'btn-primary' : 'btn-secondary' " class="btn"
+        <button type="button" [ngClass]="this.isLoginPossible() ? 'btn-primary' : 'btn-secondary' " class="btn"
             (click)="onLoginBtnClicked()">Login</button>
     </form>
 </ng-template>

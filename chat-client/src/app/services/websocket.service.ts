@@ -95,11 +95,11 @@ export class WebsocketService {
 
         return this.http.post(`http://localhost:8080/registration/users/avatar/${newUser.getUsername()}`, 
         uploadData).subscribe(
-               res => {console.log(res);},
+               res => {console.log('Avatar set successfully. ');},
                err => console.log('Error Occured during saving: ' + err)
             );
       },
-      error => console.log(error)  
+      error => console.log('Error occured during user registration: ' + error)
     ) 
   }
 }
