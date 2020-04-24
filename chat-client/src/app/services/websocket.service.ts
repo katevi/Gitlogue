@@ -79,6 +79,7 @@ export class WebsocketService {
   /**
    * Sends POST request for user registration.
    * @param newUser user instance.
+   * @param avatar user avatar
    */
   public registerUser(newUser: User, avatar: Avatar) {
     const options = { headers: { 'Content-Type': 'application/json' } };
@@ -86,7 +87,7 @@ export class WebsocketService {
       newUser,
       {observe:'response'}).subscribe( response => {
         
-        if (!this.checkResponseForServer(response, newUser)) {
+        if (!this.checkResponseForServer(response, newUser) || avatar == null) {
           return;
         }
 
