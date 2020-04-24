@@ -33,6 +33,10 @@ public class User {
     @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private long timestamp = Instant.now().getEpochSecond();
 
+    @NotNull
+    @Column(name= "avatar")
+    private byte[] avatar;
+
     public byte[] getAvatar() {
         return avatar;
     }
@@ -40,10 +44,6 @@ public class User {
     public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
-
-    @NotNull
-    @Column(name= "avatar")
-    private byte[] avatar;
 
     public String getUserId() {
         return userId;

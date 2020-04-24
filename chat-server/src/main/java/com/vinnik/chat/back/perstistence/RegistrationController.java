@@ -31,6 +31,10 @@ public class RegistrationController {
         return userService.findAll();
     }
 
+    /**
+     * Receives user's metadata and if it is valid, returns received password and nickname,
+     * otherwise returns null.
+     */
     @PostMapping(path="/", consumes="application/json", produces="application/json")
     @SendTo("/response")
     public String[] saveOrUpdateUser(@RequestBody User user) {
@@ -40,9 +44,8 @@ public class RegistrationController {
             String[] userData = new String[2];
             userData[0] = user.getUserName();
             userData[1] = user.getPassword();
-            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!" + user.getPassword());
+
             userService.saveOrUpdateUser(user);
-            System.out.println("User = " + user.getUserName() + " " + user.getAvatar() + "!!!" + user.getPassword());
             return userData;
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
@@ -51,16 +54,18 @@ public class RegistrationController {
     }
 
 
-
+    /**
+     * Set avatar to user.
+     * @param nickname - name of user, whose avatar to set.
+     * @param file - user's avatar.
+     * @return - if avatar set successfully returns ok status, if file is empty returns "not found" status
+     */
     @PostMapping("/avatar/{nickname}")
     public ResponseEntity<?> setAvatar(@PathVariable String nickname, @RequestParam("avatar") MultipartFile file) {
-        System.out.println(file.getName() + "<- it is filename");
         try {
-            System.out.print(file.getName() + " " + file.getBytes());
             User user = userService.findByNickname(nickname);
             user.setAvatar(file.getBytes());
             userService.saveOrUpdateUser(user);
-            System.out.println("Received avatar");
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
