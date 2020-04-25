@@ -68,16 +68,14 @@ export class AppComponent implements OnInit {
       return;
     }
     let msg: Message;
-    switch(this.currentReceiver) {
-      case "": {
+    if (this.currentReceiver == "") {
         msg = new Message(this.inputFullName, null, msgContent);
-      }
-      default: {
+    } else {
         msg = new Message(this.inputFullName, this.currentReceiver, msgContent);
-      }
     }
     this.websocketService.sendMsg(msg);
     this.currentMsg = "";
+    this.currentReceiver = "";
   }
 
   /**

@@ -50,6 +50,7 @@ export class WebsocketService {
    * @param message 
    */
   private onPrivateMessageReceived(message) {
+    console.log(message.body);
     let msgBody: any = JSON.parse(message.body);
     let newMsg = new Message(msgBody.sender, msgBody.receiver, msgBody.content);
     this.lastReceivedMsg$.next(newMsg);
@@ -61,10 +62,11 @@ export class WebsocketService {
    * ... to have it sync up with REST API model.
    */
   public sendMsg(msg: Message) {
-    if (msg.getSender() == null) {
+    if (msg.getReceiver() == null) {
       this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
     } else {
-      this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
+      this.stompClient.send(`/app/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
+      this.lastReceivedMsg$.next(msg);
     }
   }
 
@@ -87,7 +89,7 @@ export class WebsocketService {
       options).subscribe(response => {
         console.log("Registration response: " + JSON.stringify(response))
         const _this = this;
-        _this.stompClient.subscribe(`/user/${newUser.getUsername()}`, function(message) {
+        _this.stompClient.subscribe(`/user/`, function(message) {
           _this.onPrivateMessageReceived(message);
         });
       });
