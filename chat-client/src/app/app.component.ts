@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public currentMsg: String = "";
   public messages: Message[] = [];
   public hasAuthed: boolean = false;
+  public currentReceiver: string = "";
 
   // -- User Login info
   public inputFullName: string = "";
@@ -66,7 +67,15 @@ export class AppComponent implements OnInit {
       console.error("empty msg!")
       return;
     }
-    let msg: Message = new Message(this.inputFullName, msgContent);
+    let msg: Message;
+    switch(this.currentReceiver) {
+      case "": {
+        msg = new Message(this.inputFullName, null, msgContent);
+      }
+      default: {
+        msg = new Message(this.inputFullName, this.currentReceiver, msgContent);
+      }
+    }
     this.websocketService.sendMsg(msg);
     this.currentMsg = "";
   }
