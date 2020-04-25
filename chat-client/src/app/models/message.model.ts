@@ -1,4 +1,7 @@
+import { NgxLinkifyjsService, NgxLinkifyOptions } from 'ngx-linkifyjs';
+
 export class Message {
+    private linkifyService: NgxLinkifyjsService = new NgxLinkifyjsService();
 
     constructor(
         private readonly sender: string,
@@ -10,6 +13,15 @@ export class Message {
     }
 
     public getContent(): string {
-        return this.content;
+        const options: NgxLinkifyOptions =
+        {
+            className: 'linkifiedYES',
+            target : {
+                url : '_self'
+            }
+        };
+
+        let linkifiedContent = this.linkifyService.linkify(this.content, options);
+        return linkifiedContent;
     }
 }

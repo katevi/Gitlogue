@@ -27,7 +27,9 @@
                     <!-- Loop over existing messages in dialoque -->
                     <ng-container *ngIf="this.messages">
                         <tr *ngFor="let msg of this.messages">
-                            <b>{{ msg.getSender() }}:</b> {{ msg.getContent() }}
+                            <b>{{ msg.getSender() }}:</b>
+                            <div [innerHTML]="msg.getContent()">
+                            </div>
                         </tr>
                     </ng-container>
                 </thead>
