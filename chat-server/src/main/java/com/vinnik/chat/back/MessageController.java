@@ -23,7 +23,7 @@ public class MessageController {
 
     @MessageMapping("/chat.private.{receiver}")
     public Message sendToSpecificUser(@PathVariable String receiver, @Payload Message message) throws Exception {
-        simpMessagingTemplate.convertAndSend("/user/" + receiver, message);
+        simpMessagingTemplate.convertAndSend("/user/" + receiver +"/", message);
         return message;
     }
 }
