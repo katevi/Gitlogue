@@ -15,11 +15,4 @@ public class MessageController {
     public Message greeting(@Payload Message message) throws Exception {
         return message;
     }
-
-    @MessageMapping("/chat.newUser")
-    public Message newUser(@Payload Message message,
-                                        SimpMessageHeaderAccessor headerAccessor) {
-        headerAccessor.getSessionAttributes().put("username", message.getSender());
-        return message;
-    }
 }

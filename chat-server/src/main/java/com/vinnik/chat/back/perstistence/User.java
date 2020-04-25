@@ -5,9 +5,7 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Date;
 
 public class User {
     @Id
@@ -17,7 +15,7 @@ public class User {
 
     @NotNull
     @NotEmpty
-    private String nickname;
+    private String userName;
 
     @NotNull
     @NotEmpty
@@ -29,11 +27,23 @@ public class User {
 
     @NotNull
     @NotEmpty
-    private String gitHubAccount;
+    private String githubAccUrl;
 
     @NotNull
     @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private long timestamp = Instant.now().getEpochSecond();
+
+    @NotNull
+    @Column(name= "avatar")
+    private byte[] avatar;
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
 
     public String getUserId() {
         return userId;
@@ -51,20 +61,20 @@ public class User {
         this.password = password;
     }
 
-    public String getGitHubAccount() {
-        return this.gitHubAccount;
+    public String getGithubAccUrl() {
+        return this.githubAccUrl;
     }
 
-    public void setGitHubAccount(String gitHubAccount) {
-        this.gitHubAccount = gitHubAccount;
+    public void setGithubAccUrl(String gitHubAccount) {
+        this.githubAccUrl = gitHubAccount;
     }
 
-    public String getNickname() {
-        return this.nickname;
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserName(String nickname) {
+        this.userName = nickname;
     }
 
     public String getFullName() {
