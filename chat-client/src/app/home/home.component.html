@@ -1,6 +1,6 @@
 <div id="main-content" class="container">
     <div class="row">
-        <!-- header has been here -->
+         <!--header has been here -->
         <div class="col-md-12">
             <table id="errors" class="table table-striped">
                 <tbody id="errors">
@@ -26,7 +26,7 @@
             <table id="conversation" class="table table-striped">
                 <thead>
                     <th>Dialogue</th>
-                    <!-- Loop over existing messages in dialoque -->
+                    
                     <ng-container *ngIf="this.messages">
                         <tr *ngFor="let msg of this.messages">
                             To <b>{{ msg.getSender() }}:</b> 
@@ -39,9 +39,9 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 </div>
-<!-- Templates -->
+
 <ng-template #authForm>
     <form>
         <div class="form-group">
