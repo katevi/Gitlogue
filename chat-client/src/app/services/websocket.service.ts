@@ -84,7 +84,7 @@ export class WebsocketService {
   public registerUser(newUser: User, avatar: Avatar = null) {
     const options = { headers: { 'Content-Type': 'application/json' } };
     // Firstly sends to the server user metadata without avatar to check if such user 
-    // is not exist yet
+    // does not exist yet
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
