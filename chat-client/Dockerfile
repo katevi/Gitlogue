@@ -3,15 +3,17 @@ FROM node:8.11.2-alpine as builder
 WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install
-COPY . .
+COPY ./* .
 RUN npm run build
 
 # Stage 2. Configure Angular application server.
 FROM node:8.11.2-alpine as server
-COPY --from=builder /usr/src/app/dist/chat-client server
-RUN npm install express@'>=3.0.0 <4.0.0' --save
+# -- Copy built files from first step.
+COPY --from=builder /usr/src/app/dist/chat server
+# -- Install express library for server.js start up
+RUN npm install express --save
 WORKDIR /
 COPY docker/entrypoint.sh entrypoint.sh
 RUN sed -i 's/\r\$//' entrypoint.sh && chmod +x entrypoint.sh
-EXPOSE 8080 9090
+EXPOSE 8080
 ENTRYPOINT sh ./entrypoint.sh
