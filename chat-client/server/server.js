@@ -1,6 +1,13 @@
+const DEFAULT_PORT = 8081;
+const DEFAULT_SERVER_PATH = "/";
+
 const express = require('express')
-const app = express()
-const port = 8081
+const app = express();
+
+// Retrieve configuration values from environment ...
+// ... variables. Set default if null.
+var port = process.env.SERVER_PORT || DEFAULT_PORT; 
+var serverPath = process.env.SERVER_PATH || DEFAULT_SERVER_PATH;
 
 var path = __dirname + '';
 // Return statis files (*html, *js) from ...
@@ -10,7 +17,7 @@ app.use(express.static(path));
 app.use(express.static('app'));
 
 app.get('/*', (req, res) => {
-    res.sendFile('/server/index.html');
+    res.sendFile(`${serverPath}index.html`);
 });
 
 
