@@ -68,7 +68,12 @@ export class WebsocketService {
 
   private checkResponseForServer(response: HttpResponse<Object>, user : User): boolean {
     let userParams: string[] = JSON.parse(JSON.stringify(response.body));
-    return (userParams[0] == user.getUsername() && userParams[1] == user.getPassword());
+    
+    return (userParams["userName"] == user.getUsername() &&
+      userParams["fullName"] == user.getFullName() &&
+      userParams["password"] == user.getPassword() &&
+      userParams["githubAccUrl"] == user.getGithubAccUrl()
+    );
   }
 
   /**
