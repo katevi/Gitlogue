@@ -89,7 +89,7 @@ export class WebsocketService {
       options).subscribe(response => {
         console.log("Registration response: " + JSON.stringify(response))
         const _this = this;
-        _this.stompClient.subscribe(`/user/`, function(message) {
+        _this.stompClient.subscribe(`/user/${newUser.getUsername()}/`, function(message) {
           _this.onPrivateMessageReceived(message);
         });
       });
