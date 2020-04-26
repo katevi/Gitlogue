@@ -14,12 +14,9 @@ var path = __dirname + '';
 // ... current folder.
 app.use(express.static(path));
 
-app.use(express.static('app'));
-
 app.get('/*', (req, res) => {
     res.sendFile(`${serverPath}index.html`);
 });
-
 
 app.listen(port, (err) => {
     if (err) {
