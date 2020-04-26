@@ -1,22 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login';
+import { RegisterComponent } from './register';
+import { appRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    // -- Usage of two-way data binding.
-    FormsModule,
-    // -- REST calls
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [BrowserModule, appRoutingModule],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        LoginComponent,
+        RegisterComponent
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { };
