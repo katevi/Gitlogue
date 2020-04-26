@@ -76,6 +76,22 @@ export class WebsocketService {
     );
   }
 
+  public setAvatar(userName: string, avatar: Avatar = null) {
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    
+    // Entered registration data is correct - client sends avatar to server
+    // Forming multipart data to send file
+    const uploadData = new FormData();
+    uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
+
+    return this.http.post(
+      `http://localhost:8080/registration/users/avatar/${userName}`, uploadData)
+      .subscribe(
+               res => {console.log('Avatar set successfully. ');},
+               err => console.log('Error Occured during saving: ' + err)
+              );
+  }
+
   /**
    * Sends POST request for user registration.
    * @param newUser user instance.
@@ -93,17 +109,7 @@ export class WebsocketService {
         if (!this.checkResponseForServer(response, newUser) || avatar == null) {
           return;
         }
-
-        // Entered registration data is correct - client sends avatar to server
-        // Forming multipart data to send file
-        const uploadData = new FormData();
-        uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
-
-        return this.http.post(`http://localhost:8080/registration/users/avatar/${newUser.getUsername()}`, 
-        uploadData).subscribe(
-               res => {console.log('Avatar set successfully. ');},
-               err => console.log('Error Occured during saving: ' + err)
-            );
+        this.setAvatar(newUser.getUsername(), avatar);
       },
       error => console.log('Error occured during user registration: ' + error)
     ) 
