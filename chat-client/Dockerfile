@@ -15,5 +15,5 @@ RUN npm install express --save
 WORKDIR /
 COPY docker/entrypoint.sh entrypoint.sh
 RUN sed -i 's/\r\$//' entrypoint.sh && chmod +x entrypoint.sh
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT sh ./entrypoint.sh
