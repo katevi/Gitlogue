@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
   public inputPassword: string = "";
   public inputGitHubAccount: string = "";
 
-  public selectedFile: File;
-  imgURL: any;
+  public selectedFile: File = null;
+  imgURL: any = null;
 
 
   constructor(
@@ -75,17 +75,17 @@ export class AppComponent implements OnInit {
     }
 
     let user = new User(this.inputFullName,
-      this.inputUsername,
-      this.inputPassword,
-      this.inputGitHubAccount);
-    this.hasAuthed = this.isLoginPossible();
-    if (this.selectedFile != null) {
-      let avatar = new Avatar(this.selectedFile, 
-      this.selectedFile.name);
-      this.websocketService.registerUser(user, avatar);
-    } else {
-      this.websocketService.registerUser(user, null);
-    }
+                        this.inputUsername,
+                        this.inputPassword,
+                        this.inputGitHubAccount);
+  
+    if (this.selectedFile == null) {
+      this.websocketService.registerUser(user);
+      return;
+    } 
+    let avatar = new Avatar(this.selectedFile, 
+                            this.selectedFile.name);
+    this.websocketService.registerUser(user, avatar);
   }
 
   /**

@@ -1,7 +1,7 @@
 export class Avatar {
     constructor(
-        private file : File,
-        private filename : string
+        private file : File = null,
+        private filename : string = null
     ) {}
 
     public getFilename() : string {
