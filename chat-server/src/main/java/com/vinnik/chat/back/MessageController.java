@@ -24,7 +24,6 @@ public class MessageController {
 
     @MessageMapping("/chat.private.{receiver}")
     public Message sendToSpecificUser(@DestinationVariable String receiver, @Payload Message message) throws Exception {
-        System.out.println("/user/" + receiver +"/");
         simpMessagingTemplate.convertAndSend("/user/" + receiver +"/", message);
         return message;
     }
