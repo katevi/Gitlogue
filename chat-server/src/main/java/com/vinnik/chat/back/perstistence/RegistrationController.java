@@ -37,19 +37,19 @@ public class RegistrationController {
      */
     @PostMapping(path="/", consumes="application/json", produces="application/json")
     @SendTo("/response")
-    public User saveOrUpdateUser(@RequestBody User user) {
+    public ResponseEntity<User> saveOrUpdateUser(@RequestBody User user) {
         try {
             User responseUser = user;
             String decodedPassword = user.getPassword();
 
             userValidator.validateNewUser(userService, user);
             userService.saveOrUpdateUser(user);
-            
             responseUser.setPassword(decodedPassword);
-            return responseUser;
+
+            return new ResponseEntity<>(responseUser, HttpStatus.OK);
         } catch (NicknameAlreadyExistsException e) {
             e.printStackTrace();
-            return null;
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
