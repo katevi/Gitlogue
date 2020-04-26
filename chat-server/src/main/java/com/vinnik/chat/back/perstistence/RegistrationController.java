@@ -58,7 +58,7 @@ public class RegistrationController {
      * Set avatar to user.
      * @param nickname - name of user, whose avatar to set.
      * @param file - user's avatar.
-     * @return - if avatar set successfully returns ok status, if file is empty returns "not found" status
+     * @return - if avatar set successfully returns ok status, if file is null, returns "not acceptable" status
      */
     @PostMapping("/avatar/{nickname}")
     public ResponseEntity<?> setAvatar(@PathVariable String nickname, @RequestParam("avatar") MultipartFile file) {
@@ -69,7 +69,7 @@ public class RegistrationController {
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
