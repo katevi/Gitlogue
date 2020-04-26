@@ -6,13 +6,12 @@ app.use(express.static('app'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/app/index.html');
-    res.sendFile(__dirname + '/app/app.js');
 });
 
 
 app.listen(port, (err) => {
     if (err) {
-        return console.err('Unable to start server. Details ${err}')
+        return console.err(`Unable to start server. Details ${err}`)
     }
     console.log(`server is listening on ${port}`)
 })
