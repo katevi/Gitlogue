@@ -10,7 +10,7 @@ var port = process.env.SERVER_PORT || DEFAULT_PORT;
 var serverPath = process.env.SERVER_PATH || DEFAULT_SERVER_PATH;
 
 var path = __dirname + '';
-// Return statis files (*html, *js) from ...
+// Return static files (*html, *js) from ...
 // ... current folder.
 app.use(express.static(path));
 
