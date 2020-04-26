@@ -5,7 +5,7 @@ const port = 8081
 app.use(express.static('app'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/app/index.html');
+    res.sendFile('/index.html');
 });
 
 
