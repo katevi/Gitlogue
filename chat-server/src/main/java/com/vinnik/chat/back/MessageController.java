@@ -1,6 +1,7 @@
 package com.vinnik.chat.back;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -22,7 +23,8 @@ public class MessageController {
     }
 
     @MessageMapping("/chat.private.{receiver}")
-    public Message sendToSpecificUser(@PathVariable String receiver, @Payload Message message) throws Exception {
+    public Message sendToSpecificUser(@DestinationVariable String receiver, @Payload Message message) throws Exception {
+        System.out.println("/user/" + receiver +"/");
         simpMessagingTemplate.convertAndSend("/user/" + receiver +"/", message);
         return message;
     }
