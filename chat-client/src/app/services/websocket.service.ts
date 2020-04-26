@@ -104,11 +104,11 @@ export class WebsocketService {
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
-        // Server returns response: if user is not exist it will be entered password and nickname,
-        // otherwise user exists already and client do not has to send user's avatar
-        if (!this.checkResponseForServer(response, newUser) || avatar == null) {
+        if (avatar == null) {
+          console.log("Default avatar will be set.");
           return;
         }
+        
         this.setAvatar(newUser.getUsername(), avatar);
       },
       error => console.log('Error occured during user registration: ' + error)
