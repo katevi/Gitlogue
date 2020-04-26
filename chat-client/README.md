@@ -11,7 +11,7 @@
 docker build -t katevi-chat .
 docker run -itd -p 8081:8081 katevi-chat
 ```
-Please, note that port for the application serving should match `SERVER_PORT` within (.env)[.env] file.
+Please, note that port for the application serving should match `SERVER_PORT` within [.env](.env) file.
 
 ## Angular
 ```
