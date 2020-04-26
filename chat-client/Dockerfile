@@ -2,7 +2,7 @@
 FROM node:8.11.2-alpine as builder
 WORKDIR /usr/src/app
 COPY package.json ./
-# -- Install Angullar
+# -- Install Angular
 RUN npm install
 COPY . ./
 # -- Build Angular application
