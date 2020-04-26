@@ -41,7 +41,7 @@ export class WebsocketService {
    */
   private onGeneralMessageReceived(message) {
     let msgBody: any = JSON.parse(message.body);
-    let newMsg = new Message(msgBody.sender, null, msgBody.content);
+    let newMsg = new Message(msgBody.sender, msgBody.content);
     this.lastReceivedMsg$.next(newMsg);
   }
 
@@ -52,7 +52,7 @@ export class WebsocketService {
   private onPrivateMessageReceived(message) {
     console.log(message.body);
     let msgBody: any = JSON.parse(message.body);
-    let newMsg = new Message(msgBody.sender, msgBody.receiver, msgBody.content);
+    let newMsg = new Message(msgBody.sender, msgBody.content, msgBody.receiver);
     this.lastReceivedMsg$.next(newMsg);
   }
 

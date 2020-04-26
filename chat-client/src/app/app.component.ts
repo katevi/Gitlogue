@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
       console.error("empty msg!")
       return;
     }
-    let msg = new Message(this.inputFullName, this.currentReceiver, msgContent);
+    let msg = new Message(this.inputFullName, msgContent, this.currentReceiver);
     this.websocketService.sendMsg(msg);
     this.currentMsg = "";
     this.currentReceiver = "";
