@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
     console.log(uploadClicked);
     this.selectedFile = uploadClicked.target.files[0];
 
-    // Below part is used to display the selected image
     let reader = new FileReader();
     reader.readAsDataURL(uploadClicked.target.files[0]);
     reader.onload = (event) => {
@@ -78,8 +77,7 @@ export class AppComponent implements OnInit {
     let user = new User(this.inputFullName,
       this.inputUsername,
       this.inputPassword,
-      this.inputGitHubAccount,
-      null);
+      this.inputGitHubAccount);
     this.hasAuthed = this.isLoginPossible();
     if (this.selectedFile != null) {
       let avatar = new Avatar(this.selectedFile, 

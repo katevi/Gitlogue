@@ -6,7 +6,7 @@ export class User {
         private userName: string,
         private password: string,
         private githubAccUrl: string,
-        private avatar : Avatar
+        private avatar : Avatar = null
     ) { }
 
     public getFullName(): string {
@@ -24,8 +24,4 @@ export class User {
     public getGithubAccUrl(): string {
         return this.githubAccUrl;
     }
-
-    /*public getAvatar() : File {
-        return this.avatar;
-    }*/
 }
