@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import * as Stomp from './node_modules/stompjs';
-import * as SockJS from './node_modules/sockjs-client'
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client'
 
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../models/message.model';

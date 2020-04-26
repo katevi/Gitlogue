@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WebsocketService } from './services/websocket.service';
-import { Message } from './models/message.model';
-import { User } from './models/user.model';
+import { WebsocketService } from '../services/websocket.service';
+import { Message } from '../models/message.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'home-root',
