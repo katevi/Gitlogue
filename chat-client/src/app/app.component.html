@@ -14,7 +14,7 @@
                         <input [(ngModel)]="this.currentMsg" name="Entering message" type="text" id="currentMsg"
                             class="form-control" placeholder="Enter message here...">
                         <input [(ngModel)]="this.currentReceiver" name="Receiver username" type="text" id="currentReceiver"
-                            class="form-control" placeholder="If you want to send private message, enter receiver's username here...">
+                            class="form-control" placeholder="Enter receiver name...">
                     </div>
                     <button id="send" class="btn btn-default" (click)="onSendMsgBtnClicked(currentMsg)">Send</button>
                 </form>
