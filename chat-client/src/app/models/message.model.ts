@@ -2,7 +2,7 @@ export class Message {
 
     constructor(
         private readonly sender: string,
-        private readonly receiver: string,
+        private readonly receiver: string = null,
         private readonly content: string
     ) { }
 

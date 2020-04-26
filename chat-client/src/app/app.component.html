@@ -29,8 +29,8 @@
                     <!-- Loop over existing messages in dialoque -->
                     <ng-container *ngIf="this.messages">
                         <tr *ngFor="let msg of this.messages">
-                            To <b>{{ msg.getSender() }}:</b> 
-                            From <b>{{ msg.getReceiver() }}:</b> 
+                            From <b>{{ msg.getSender() }}:</b> 
+                            To <b>{{ msg.getReceiver() }}:</b> 
                             {{ msg.getContent() }}
                         </tr>
                     </ng-container>

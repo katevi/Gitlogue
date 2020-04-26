@@ -64,10 +64,10 @@ export class WebsocketService {
   public sendMsg(msg: Message) {
     if (msg.getReceiver() == null) {
       this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
-    } else {
-      this.stompClient.send(`/app/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
-      this.lastReceivedMsg$.next(msg);
+      return;
     }
+    this.stompClient.send(`/app/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
+    this.lastReceivedMsg$.next(msg);
   }
 
   /**
