@@ -15,9 +15,12 @@ Pet-project of participant Dell mentorship program. Made with Java.
 | --- | --- | --- | --- | --- |
 | `/sentMessages` | **POST** | `application/json` | `message` - text of user's message, `sender` - user's nickname |  Server receives chat message from registered user |
 | `/topic/publishedMessages` | **GET** | - | - | Server posts messages, received from clients |
-| `/api/registered` | **GET** | - | - | Get all registered users |
-| `/api/user`| **GET** | `application/json` | ```nickname``` - nickname of registered user | Get user by specialized nickname |
-| `/api/user` | **DELETE** | `application/json` | ```nickname``` - nickname of registered user | Delete user by specialized nickname |
-| `/api/user` | **POST** | `application/json` | `nickname` - registering user's nickname, `fullName` - registering user's full name, `password` - registering user's password, `gitHubAccount` - link to the registering user's gitHub account | Register user with given metadata |
-| `api/user/avatar` | **POST** | `application/json/` | `avatarData` - file of user's avatar | Set user's avatar|
-| `/api/login/` | **POST** | `application/json` | `nickname` - nickname of user want to log in, `password` - user's password | Log in user with specialized metadata |
+| `/chat.private.{receiver}` | **POST** | `application/json` | - | Post private message |
+| `/users/` | **GET** | - | - | Get all registered users |
+| `/users/` | **DELETE** | `application/json` | ```nickname``` - nickname of registered user | Delete user by specified nickname |
+| `/users/user/avatar` | **POST** | `application/json/` | `avatarData` - file of user's avatar | Set user's avatar|
+| `/users/user/fullName/` | **GET** | `application/json/` | `fullName` - user's full name | Find user by specified full name |
+| `/users/user/nickname/` | **GET** | `application/json/` | `nickname` - user's nickname | Find user by specified nickname |
+| `/users/user/id/` | **GET** | `application/json/` | `avatarData` - file of user's avatar | Find user by specified id |
+| `/registration/` | **POST** | `application/json` | `nickname` - registering user's nickname, `fullName` - registering user's full name, `password` - registering user's password, `gitHubAccount` - link to the registering user's gitHub account | Register user with given metadata |
+| `/login/` | **POST** | `application/json` | `nickname` - nickname of user want to log in, `password` - user's password | Log in user with specialized metadata |
