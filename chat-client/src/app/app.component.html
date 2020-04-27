@@ -11,8 +11,10 @@
             <ng-container *ngIf="this.hasAuthed; else authForm">
                 <form class="form-inline">
                     <div class="form-group">
-                        <input [(ngModel)]="this.currentMsg" name="Entering message" type="text" id="name"
+                        <input [(ngModel)]="this.currentMsg" name="Entering message" type="text" id="currentMsg"
                             class="form-control" placeholder="Enter message here...">
+                        <input [(ngModel)]="this.currentReceiver" name="Receiver username" type="text" id="currentReceiver"
+                            class="form-control" placeholder="Enter receiver name...">
                     </div>
                     <button id="send" class="btn btn-default" (click)="onSendMsgBtnClicked(currentMsg)">Send</button>
                 </form>
@@ -27,7 +29,9 @@
                     <!-- Loop over existing messages in dialoque -->
                     <ng-container *ngIf="this.messages">
                         <tr *ngFor="let msg of this.messages">
-                            <b>{{ msg.getSender() }}:</b> {{ msg.getContent() }}
+                            From <b>{{ msg.getSender() }}:</b> 
+                            To <b>{{ msg.getReceiver() }}:</b> 
+                            {{ msg.getContent() }}
                         </tr>
                     </ng-container>
                 </thead>

@@ -21,7 +21,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public void deleteUser(String nickname) {
-        User expectedUser = userRepository.findByNickname(nickname);
+        User expectedUser = userRepository.findByUserName(nickname);
         userRepository.delete(expectedUser);
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User findByNickname(String nickname) {
-        return userRepository.findByNickname(nickname);
+        return userRepository.findByUserName(nickname);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class UserValidator {
 
 
     public boolean validateNewUser(final UserService userService, final User user) throws NicknameAlreadyExistsException {
-        if (!validateNickname(userService, user.getNickname())) {
+        if (!validateNickname(userService, user.getUserName())) {
             throw new NicknameAlreadyExistsException();
         }
         return true;
@@ -25,7 +25,7 @@ public class UserValidator {
     }
 
     private boolean validatePasswordAndNickname(final UserService userService, final User user) {
-        final User expectedUser = userService.findByNickname(user.getNickname());
+        final User expectedUser = userService.findByNickname(user.getUserName());
         if (expectedUser == null) {
             return false;
         }

@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   public currentMsg: String = "";
   public messages: Message[] = [];
   public hasAuthed: boolean = false;
+  public currentReceiver: string = null;
 
   // -- User Login info
   public inputFullName: string = "";
@@ -96,9 +97,10 @@ export class AppComponent implements OnInit {
       console.error("empty msg!")
       return;
     }
-    let msg: Message = new Message(this.inputFullName, msgContent);
+    let msg = new Message(this.inputFullName, msgContent, this.currentReceiver);
     this.websocketService.sendMsg(msg);
     this.currentMsg = "";
+    this.currentReceiver = "";
   }
 
   /**
@@ -110,7 +112,7 @@ export class AppComponent implements OnInit {
     this.websocketService.getLastReceivedMsg().subscribe(
       (newMsg: Message) => {
         // -- the function is triggered every time ...
-        // -- ... new message is received vai STOMP.
+        // -- ... new message is received via STOMP.
         if (newMsg == null) {
           return;
         }
