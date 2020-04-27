@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
 import { Message } from './models/message.model';
 import { User } from './models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { Avatar } from './models/avatar.model';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,10 @@ export class AppComponent implements OnInit {
   public inputPassword: string = "";
   public inputGitHubAccount: string = "";
 
+  public selectedFile: File = null;
+  imgURL: any = null;
+
+
   constructor(
     public websocketService: WebsocketService
   ) { }
@@ -30,6 +36,22 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.init();
   }
+
+  /**
+   * Handles clicking button for avatar choice.
+   * @param uploadClicked
+   */
+  public onFileChanged(uploadClicked) {
+    console.log(uploadClicked);
+    this.selectedFile = uploadClicked.target.files[0];
+
+    let reader = new FileReader();
+    reader.readAsDataURL(uploadClicked.target.files[0]);
+    reader.onload = (event) => {
+      this.imgURL = reader.result;
+  };
+
+ }
 
   /**
    * Indicates whether login attempt should be allowed.
@@ -43,6 +65,7 @@ export class AppComponent implements OnInit {
     );
   }
 
+
   /**
    * Handles login button click.
    */
@@ -50,12 +73,19 @@ export class AppComponent implements OnInit {
     if (!this.isLoginPossible()) {
       return;
     }
+
     let user = new User(this.inputFullName,
                         this.inputUsername,
                         this.inputPassword,
                         this.inputGitHubAccount);
-    this.hasAuthed = this.isLoginPossible();
-    this.websocketService.registerUser(user);
+    this.hasAuthed = true;
+    if (this.selectedFile == null) {
+      this.websocketService.registerUser(user);
+      return;
+    } 
+    let avatar = new Avatar(this.selectedFile, 
+                            this.selectedFile.name);
+    this.websocketService.registerUser(user, avatar);
   }
 
   /**

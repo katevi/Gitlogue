@@ -1,9 +1,12 @@
+import { Avatar } from "./avatar.model";
+
 export class User {
     constructor(
         private fullName: string,
         private userName: string,
         private password: string,
-        private githubAccUrl: string
+        private githubAccUrl: string,
+        private avatar : Avatar = null
     ) { }
 
     public getFullName(): string {
@@ -18,7 +21,7 @@ export class User {
         return this.password;
     }
 
-    public getGethibAccUrl(): string {
+    public getGithubAccUrl(): string {
         return this.githubAccUrl;
     }
 }
