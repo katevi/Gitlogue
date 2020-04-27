@@ -19,6 +19,7 @@ export class WebsocketService {
   private stompClient: any;
   private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
 
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -41,6 +42,7 @@ export class WebsocketService {
    */
   private onGeneralMessageReceived(message) {
     let msgBody: any = JSON.parse(message.body);
+  
     let newMsg = new Message(msgBody.sender, msgBody.content);
     this.lastReceivedMsg$.next(newMsg);
   }

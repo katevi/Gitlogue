@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
     this.websocketService.getLastReceivedMsg().subscribe(
       (newMsg: Message) => {
         // -- the function is triggered every time ...
-        // -- ... new message is received vai STOMP.
+        // -- ... new message is received via STOMP.
         if (newMsg == null) {
           return;
         }
