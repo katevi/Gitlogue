@@ -65,7 +65,6 @@
             <input type="file" (change)="onFileChanged($event)">
             <img [src]="imgURL" height="200" *ngIf="imgURL">
         </div>
-        
         <button type="button" [ngClass]="this.isLoginPossible() ? 'btn-primary' : 'btn-secondary' " class="btn"
             (click)="onLoginBtnClicked()">Login</button>
     </form>

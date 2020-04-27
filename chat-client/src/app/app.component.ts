@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
    * Handles clicking button for avatar choice.
    * @param uploadClicked
    */
-  public  onFileChanged(uploadClicked) {
+  public onFileChanged(uploadClicked) {
     console.log(uploadClicked);
     this.selectedFile = uploadClicked.target.files[0];
 
