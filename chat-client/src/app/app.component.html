@@ -31,7 +31,8 @@
                         <tr *ngFor="let msg of this.messages">
                             From <b>{{ msg.getSender() }}:</b> 
                             To <b>{{ msg.getReceiver() }}:</b> 
-                            {{ msg.getContent() }}
+                            <div [innerHTML]="msg.getContent()">
+                            </div>
                         </tr>
                     </ng-container>
                 </thead>
