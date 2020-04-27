@@ -10,16 +10,10 @@ import org.springframework.stereotype.Controller;
 public class MessageController {
 
 
-    @MessageMapping("/sendedMessages")
+    @MessageMapping("/sentMessages")
     @SendTo("/topic/publishedMessages")
     public Message greeting(@Payload Message message) throws Exception {
         return message;
     }
 
-    @MessageMapping("/chat.newUser")
-    public Message newUser(@Payload Message message,
-                                        SimpMessageHeaderAccessor headerAccessor) {
-        headerAccessor.getSessionAttributes().put("username", message.getSender());
-        return message;
-    }
 }

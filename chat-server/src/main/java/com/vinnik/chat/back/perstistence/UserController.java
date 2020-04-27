@@ -13,8 +13,8 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("register")
-public class RegistrationController {
+@RequestMapping("/api")
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -26,16 +26,27 @@ public class RegistrationController {
         return userService.findByNickname(nickname);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/registered")
     public List<User> getAllStudents() {
         return userService.findAll();
+    }
+
+    @PostMapping("/login")
+    @SendTo("/response")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            userValidator.validateUser(userService, user);
+            return new ResponseEntity<>("Authorization completed successful", HttpStatus.OK);
+        } catch (IncorrectLoginOrPasswordException e) {
+            return new ResponseEntity<>("Incorrect login or password", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     /**
      * Receives user's metadata and if it is valid, returns received password and nickname,
      * otherwise returns null.
      */
-    @PostMapping(path="/", consumes="application/json", produces="application/json")
+    @PostMapping(path="/registration", consumes="application/json", produces="application/json")
     @SendTo("/response")
     public ResponseEntity<User> saveOrUpdateUser(@RequestBody User user) {
         try {
