@@ -54,7 +54,7 @@ export class WebsocketService {
    * ... to have it sync up with REST API model.
    */
   public sendMsg(msg: Message) {
-    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
+    this.stompClient.send("/sendedMessages", {}, JSON.stringify(msg));
   }
 
   /**
