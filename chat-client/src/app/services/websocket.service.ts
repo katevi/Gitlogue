@@ -30,7 +30,7 @@ export class WebsocketService {
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(ws);
     const _this = this;
-    console.log("now will try to connect");
+    console.log("Connecting...");
     _this.stompClient.connect({}, function (frame) {
       console.log("connected");
       _this.stompClient.subscribe("/topic/publishedMessages", function (message) {
