@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class WebsocketService {
 
   private TARGET_MSG_SERVER = 'http://localhost:8080';
-  private MSG_SERVER_SOCKET_URL = `${this.TARGET_MSG_SERVER}/chat-websocket`;
+  private MSG_SERVER_SOCKET_URL = `${this.TARGET_MSG_SERVER}/chat-websocket/connect`;
 
   private stompClient: any;
   private lastReceivedMsg$: BehaviorSubject<Message> = new BehaviorSubject<Message>(null);
@@ -30,10 +30,14 @@ export class WebsocketService {
     let ws = new SockJS(this.MSG_SERVER_SOCKET_URL);
     this.stompClient = Stomp.over(ws);
     const _this = this;
+    console.log("now will try to connect");
     _this.stompClient.connect({}, function (frame) {
+      console.log("connected");
       _this.stompClient.subscribe("/topic/publishedMessages", function (message) {
         _this.onMessageReceived(message);
       });
+    }, error => {
+      console.log(error);
     });
 
   }
@@ -54,7 +58,7 @@ export class WebsocketService {
    * ... to have it sync up with REST API model.
    */
   public sendMsg(msg: Message) {
-    this.stompClient.send("/sendedMessages", {}, JSON.stringify(msg));
+    this.stompClient.send("/sentMessages", {}, JSON.stringify(msg));
   }
 
   /**
@@ -85,7 +89,7 @@ export class WebsocketService {
     uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
 
     return this.http.post(
-      `${this.TARGET_MSG_SERVER}/register/user/avatar?nickname=${userName}`, uploadData)
+      `${this.TARGET_MSG_SERVER}/api/user/avatar?nickname=${userName}`, uploadData)
       .subscribe(
                res => {console.log('Avatar set successfully. ');},
                err => console.log('Error Occured during saving: ' + err)
@@ -101,7 +105,7 @@ export class WebsocketService {
     const options = { headers: { 'Content-Type': 'application/json' } };
     // Firstly sends to the server user metadata without avatar to check if such user 
     // does not exist yet
-    return this.http.post(`${this.TARGET_MSG_SERVER}/register/`, 
+    return this.http.post(`${this.TARGET_MSG_SERVER}/api/registration`, 
       newUser,
       {observe:'response'}).subscribe( response => {
         if (avatar == null) {
