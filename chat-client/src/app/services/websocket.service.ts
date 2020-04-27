@@ -31,7 +31,7 @@ export class WebsocketService {
     const _this = this;
     _this.stompClient.connect({}, function (frame) {
       _this.stompClient.subscribe("/topic/publishedMessages", function (message) {
-        _this.onMessageReceived(message);
+        _this.onGeneralMessageReceived(message);
       });
     });
 
@@ -40,13 +40,23 @@ export class WebsocketService {
   /**
    * Triggers each time a new message is received.
    */
-  private onMessageReceived(message) {
+  private onGeneralMessageReceived(message) {
     let msgBody: any = JSON.parse(message.body);
   
     let newMsg = new Message(msgBody.sender, msgBody.content);
     this.lastReceivedMsg$.next(newMsg);
   }
 
+  /**
+   * Made special function for private message to underline that in future it is private 
+   * @param message 
+   */
+  private onPrivateMessageReceived(message) {
+    console.log(message.body);
+    let msgBody: any = JSON.parse(message.body);
+    let newMsg = new Message(msgBody.sender, msgBody.content, msgBody.receiver);
+    this.lastReceivedMsg$.next(newMsg);
+  }
 
   /**
    * Sends new message via STOMP.
@@ -54,7 +64,12 @@ export class WebsocketService {
    * ... to have it sync up with REST API model.
    */
   public sendMsg(msg: Message) {
-    this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
+    if (msg.getReceiver() == null) {
+      this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
+      return;
+    }
+    this.stompClient.send(`/app/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
+    this.lastReceivedMsg$.next(msg);
   }
 
   /**
@@ -74,7 +89,11 @@ export class WebsocketService {
     return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`,
       JSON.stringify(newUser),
       options).subscribe(response => {
-        console.log("Reigstration response: " + JSON.stringify(response))
+        console.log("Registration response: " + JSON.stringify(response))
+        const _this = this;
+        _this.stompClient.subscribe(`/user/${newUser.getUsername()}/`, function(message) {
+          _this.onPrivateMessageReceived(message);
+        });
       });
   }
 }
