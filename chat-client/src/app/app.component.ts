@@ -29,8 +29,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    public websocketService: WebsocketService,
-    private httpClient: HttpClient
+    public websocketService: WebsocketService
   ) { }
 
   ngOnInit(): void {
@@ -78,7 +77,7 @@ export class AppComponent implements OnInit {
                         this.inputUsername,
                         this.inputPassword,
                         this.inputGitHubAccount);
-  
+    this.hasAuthed = true;
     if (this.selectedFile == null) {
       this.websocketService.registerUser(user);
       return;
