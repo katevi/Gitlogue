@@ -71,10 +71,10 @@ export class WebsocketService {
    */
   public sendMsg(msg: Message) {
     if (msg.getReceiver() == null) {
-      this.stompClient.send("/app/sendedMessages", {}, JSON.stringify(msg));
+      this.stompClient.send("/sentMessages", {}, JSON.stringify(msg));
       return;
     }
-    this.stompClient.send(`/app/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
+    this.stompClient.send(`/chat.private.${msg.getReceiver()}`, {}, JSON.stringify(msg));
     this.lastReceivedMsg$.next(msg);
   }
 
@@ -106,7 +106,7 @@ export class WebsocketService {
     uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
 
     return this.http.post(
-      `${this.TARGET_MSG_SERVER}/api/user/avatar?nickname=${userName}`, uploadData)
+      `${this.TARGET_MSG_SERVER}/users/user/avatar?nickname=${userName}`, uploadData)
       .subscribe(
                res => {console.log('Avatar set successfully. ');},
                err => console.log('Error Occured during saving: ' + err)
@@ -122,7 +122,7 @@ export class WebsocketService {
     const options = { headers: { 'Content-Type': 'application/json' } };
     // Firstly sends to the server user metadata without avatar to check if such user 
     // does not exist yet
-    return this.http.post(`${this.TARGET_MSG_SERVER}/api/registration`, 
+    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
         console.log("Registration response: " + JSON.stringify(response))
