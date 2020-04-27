@@ -21,8 +21,8 @@ public class RegistrationController {
     @Autowired
     private UserValidator userValidator;
 
-    @GetMapping("/{nickname}")
-    public User getUserByUserNickname(@PathVariable("nickname") String nickname) {
+    @GetMapping("/user")
+    public User getUserByUserNickname(@RequestParam String nickname) {
         return userService.findByNickname(nickname);
     }
 
@@ -60,8 +60,8 @@ public class RegistrationController {
      * @param file - user's avatar.
      * @return - if avatar set successfully returns ok status, if file is null, returns "not acceptable" status
      */
-    @PostMapping("/avatar/{nickname}")
-    public ResponseEntity<?> setAvatar(@PathVariable String nickname, @RequestParam("avatar") MultipartFile file) {
+    @PostMapping("/user/avatar")
+    public ResponseEntity<?> setAvatar(@RequestParam("nickname") String nickname, @RequestParam("avatar") MultipartFile file) {
         try {
             User user = userService.findByNickname(nickname);
             user.setAvatar(file.getBytes());
@@ -74,8 +74,8 @@ public class RegistrationController {
     }
 
 
-    @DeleteMapping("/{nickname}")
-    public ResponseEntity<?> deleteUser(@PathVariable("nickname") String nickname) {
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteUser(@RequestParam("nickname") String nickname) {
         userService.deleteUser(nickname);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
