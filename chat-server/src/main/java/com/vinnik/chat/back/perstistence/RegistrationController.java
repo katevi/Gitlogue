@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("registration/users")
+@RequestMapping("register")
 public class RegistrationController {
     @Autowired
     private UserService userService;
