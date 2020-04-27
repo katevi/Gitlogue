@@ -7,7 +7,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("login/users")
+@RequestMapping("/login")
 public class LoginController {
     @Autowired
     private UserService userService;
