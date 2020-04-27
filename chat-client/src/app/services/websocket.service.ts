@@ -85,7 +85,7 @@ export class WebsocketService {
     uploadData.append('avatar', avatar.getFile(), avatar.getFilename());
 
     return this.http.post(
-      `http://localhost:8080/registration/users/avatar/${userName}`, uploadData)
+      `${this.TARGET_MSG_SERVER}/register/user/avatar?nickname=${userName}`, uploadData)
       .subscribe(
                res => {console.log('Avatar set successfully. ');},
                err => console.log('Error Occured during saving: ' + err)
@@ -101,7 +101,7 @@ export class WebsocketService {
     const options = { headers: { 'Content-Type': 'application/json' } };
     // Firstly sends to the server user metadata without avatar to check if such user 
     // does not exist yet
-    return this.http.post(`${this.TARGET_MSG_SERVER}/registration/users/`, 
+    return this.http.post(`${this.TARGET_MSG_SERVER}/register/`, 
       newUser,
       {observe:'response'}).subscribe( response => {
         if (avatar == null) {
