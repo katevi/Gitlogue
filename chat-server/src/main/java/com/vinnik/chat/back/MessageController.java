@@ -16,7 +16,7 @@ public class MessageController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/sendedMessages")
+    @MessageMapping("/sentMessages")
     @SendTo("/topic/publishedMessages")
     public Message greeting(@Payload Message message) throws Exception {
         return message;
