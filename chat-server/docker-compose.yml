@@ -1,15 +1,17 @@
 version: "3"
 services:
+  api:
+    image: gitlogue-server
+    ports:
+      - 8080:8080
+    depends_on:
+      - api-database
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://api-database:27017/db
   api-database:
     image: mongo:3.2.4
     container_name: "api-database"
+    hostname: api-database
     ports:
       - 27017:27017
-    command: --smallfiles
-  api:
-    image: chat-server
-    ports:
-      - 9091:8080
-    links:
-      - api-database
-}
+    command: mongod 

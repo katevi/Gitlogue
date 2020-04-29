@@ -5,10 +5,8 @@ RUN gradle bootJar
 
 FROM openjdk:8-jre-slim
 
-EXPOSE 8080
-
 RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/chat-server-0.0.1-SNAPSHOT.jar /app/chat-server-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "/app/chat-server-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://api-database:27017/db", "-jar", "/app/chat-server-0.0.1-SNAPSHOT.jar"]
 
