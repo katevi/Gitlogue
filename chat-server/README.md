@@ -6,9 +6,8 @@ Pet-project of participant Dell mentorship program. Made with Java.
 
 
 ### 1. Execution
-1. ```gradle bootJar```
-2. Navigate to ```build/libs/```
-3. ```java -jar chat-server-0.0.1-SNAPSHOT.jar```
+1. docker build . -t gitlogue-server
+2. docker run -p 8080:8080 gitlogue-server
 
 ### 2. REST API 
 | Method | Type | Arguments' type | Arguments | Description |
