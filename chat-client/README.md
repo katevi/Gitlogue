@@ -1,29 +1,32 @@
 # Chat
 
-## Requirements
-
-* Angular CLI 6.2.4 or above;
-
-## Build & Run
-
-### Docker
-```
-docker build -t katevi-chat .
-docker run -itd -p 8081:8081 katevi-chat
-```
-Please, note that port for the application serving should match `SERVER_PORT` within [.env](.env) file.
-
-## Angular
-```
-ng build --prod
-```
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-## Troubleshooting
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Troubleshooting
 
 1. StompJS installation
 ```
@@ -34,7 +37,16 @@ Fixed by `npm i net -S`
 
 2. 'Global not defined'
 Add the following code into `polyfills.ts`:
-```
+
+3. ```
+: not foundt.sh: line 2:
+: not foundt.sh: line 3:
+./entrypoint.sh: line 9: syntax error: unexpected end of file (expecting "do")```
+Move to Unix line endings. Way to fix via Notepad++ :
+	- open entrypoint.sh
+	- "Edit" -> "EOL Conversion" -> "Unix (LF)"
+
+
 /**
  * Workaround for https://github.com/angular/angular-cli/issues/8160
  */
