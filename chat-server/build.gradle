@@ -4,7 +4,7 @@ import com.bmuschko.gradle.docker.tasks.image.*
 buildscript {
     ext {
         depVersion = [
-                gradle_docker_plugin: "6.4.0"
+                gradle_docker_plugin: '6.4.0'
         ]
     }
     
@@ -19,11 +19,11 @@ buildscript {
 plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'com.bmuschko.docker-spring-boot-application' version '6.4.0'
     id 'java'
 }
 
 apply plugin: 'com.bmuschko.docker-remote-api'
-apply plugin: 'com.bmuschko.docker-java-application'
 
 group = 'com.vinnik.chat'
 version = '0.0.1-SNAPSHOT'
@@ -50,6 +50,7 @@ task createDockerfile(type: Dockerfile) {
     from "gradle:6.3.0-jdk8 AS build"
     instruction "COPY --chown=gradle:gradle . /home/gradle/src"
     instruction "WORKDIR /home/gradle/src"
+    instruction "RUN cd .."
     instruction "RUN gradle bootJar"
     from "openjdk:8-jre-slim"
     instruction "RUN mkdir /app"
@@ -67,12 +68,8 @@ task clear() {
 
 clean.dependsOn clear
 
-task buildImage(type: DockerBuildImage, dependsOn: 'createDockerfile') {
-    inputDir = project.file(".")
-    dockerFile = createDockerfile.destFile
-    imageId = "123"
-    doLast {
-        clearProductionFiles()
-    }
+task buildImage(type: DockerBuildImage) {
+    inputDir = file(dockerBuildDir)
+    images.add('myapp:latest')
 }
 
