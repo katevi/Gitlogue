@@ -43,3 +43,13 @@ Add the following code into `polyfills.ts`:
  */
 (window as any).global = window; 
 ```
+3.  'entrypoint.sh problems in Windows'
+```
+    : not foundt.sh: line 2:
+    : not foundt.sh: line 3:
+    ./entrypoint.sh: line 9: syntax error: unexpected end of file (expecting "do")
+```
+Move to Unix line endings. Way to fix via ```Notepad++``` :
+	- open ```entrypoint.sh```
+	- ```"Edit"``` -> ```"EOL Conversion"``` -> ```"Unix (LF)"```
+Articles: [Dealing With Windows Line Endings](https://willi.am/blog/2016/08/11/docker-for-windows-dealing-with-windows-line-endings/), [*.sh not found](https://stackoverflow.com/questions/40487747/trying-to-build-a-docker-container-start-sh-not-found)
