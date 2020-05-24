@@ -5,7 +5,10 @@ Pet-project of participant Dell mentorship program. Made with Java.
 ## Server part
 
 
-### 1. Execution
+### 1. Docker
+1. ```docker-compose up```
+
+### 2. Development server
 1. ```gradle bootJar```
 2. Navigate to ```build/libs/```
 3. ```java -jar chat-server-0.0.1-SNAPSHOT.jar```
