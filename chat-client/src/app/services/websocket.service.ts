@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class WebsocketService {
 
-  private TARGET_MSG_SERVER = 'http://localhost:8080';
+  private TARGET_MSG_SERVER = 'http://192.168.99.100:8080';
   private MSG_SERVER_SOCKET_URL = `${this.TARGET_MSG_SERVER}/chat-websocket/connect`;
 
   private stompClient: any;

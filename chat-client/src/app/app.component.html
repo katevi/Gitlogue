@@ -30,7 +30,6 @@
                     <ng-container *ngIf="this.messages">
                         <tr *ngFor="let msg of this.messages">
                             From <b>{{ msg.getSender() }}:</b> 
-                            To <b>{{ msg.getReceiver() }}:</b> 
                             <div [innerHTML]="msg.getContent()">
                             </div>
                         </tr>
