@@ -9,4 +9,3 @@ RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/chat-server-0.0.1-SNAPSHOT.jar /app/chat-server-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://database:27017/db", "-jar", "/app/chat-server-0.0.1-SNAPSHOT.jar"]
-

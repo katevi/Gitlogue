@@ -1,29 +1,8 @@
-import com.bmuschko.gradle.docker.tasks.container.*
-import com.bmuschko.gradle.docker.tasks.image.*
-
-buildscript {
-    ext {
-        depVersion = [
-                gradle_docker_plugin: '6.4.0'
-        ]
-    }
-    
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.bmuschko:gradle-docker-plugin:${depVersion.gradle_docker_plugin}"
-    }
-}
-
 plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'com.bmuschko.docker-spring-boot-application' version '6.4.0'
     id 'java'
 }
-
-apply plugin: 'com.bmuschko.docker-remote-api'
 
 group = 'com.vinnik.chat'
 version = '0.0.1-SNAPSHOT'
@@ -31,7 +10,6 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
@@ -42,34 +20,3 @@ dependencies {
     implementation 'org.springframework.security:spring-security-test'
     implementation 'org.hibernate:hibernate-core:5.4.14.Final'
 }
-
-def dockerBuildDir = 'build/docker/'
-
-task createDockerfile(type: Dockerfile) {
-    destFile = project.file("$dockerBuildDir/Dockerfile")
-    from "gradle:6.3.0-jdk8 AS build"
-    instruction "COPY --chown=gradle:gradle . /home/gradle/src"
-    instruction "WORKDIR /home/gradle/src"
-    instruction "RUN cd .."
-    instruction "RUN gradle bootJar"
-    from "openjdk:8-jre-slim"
-    instruction "RUN mkdir /app"
-    instruction "COPY --from=build /home/gradle/src/build/libs/chat-server-0.0.1-SNAPSHOT.jar /app/chat-server-0.0.1-SNAPSHOT.jar"
-    instruction "ENTRYPOINT [\"java\", \"-Dspring.data.mongodb.uri=mongodb://database:27017/db\", \"-jar\", \"/app/chat-server-0.0.1-SNAPSHOT.jar\"]"
-}
-
-def clearProductionFiles() {
-    delete 'docker'
-}
-
-task clear() {
-    clearProductionFiles()
-}
-
-clean.dependsOn clear
-
-task buildImage(type: DockerBuildImage) {
-    inputDir = file(dockerBuildDir)
-    images.add('myapp:latest')
-}
-
