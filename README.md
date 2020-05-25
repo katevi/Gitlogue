@@ -13,8 +13,8 @@ Gitlogue - is client-server  web chat.
 ![](media/message_exchange_scenario.png)
 
 ## 2.1 Client part
-Documentation of client part might be found [here](chat-client/README.md) .
+Documentation of client part might be found [here](chat-client/README.md).
 
 ## 2.2 Server part
-Documentation of client part might be found [here](chat-server/README.md) .
+Documentation of client part might be found [here](chat-server/README.md).
 
