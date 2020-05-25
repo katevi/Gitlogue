@@ -12,3 +12,9 @@ Gitlogue - is client-server  web chat.
 ## 1.2 Message exchange scenario
 ![](media/message_exchange_scenario.png)
 
+## 2.1 Client part
+[Client documentation](chat-client/README.md)
+
+## 2.2 Server part
+[Client documentation](chat-server/README.md)
+
